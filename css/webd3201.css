@@ -1,0 +1,70 @@
+/*
+
+Group #     :
+Members     : Joseph Dagunan, David Bond
+File name   : webd3201.css
+
+*/
+
+
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,700';
+
+html, body {height: 100%;}
+html { font-family: 'Open Sans', sans-serif; font-weight: 300;}
+body { background: #fcfcfc; font-size: 12px!important;}
+p { padding: 0; margin: 0;}
+
+h1,h2,h3,h4,h5,h6{ color: #ffffff; font-weight: 300; text-transform: uppercase;}
+h1 { font-size: 26px;}
+h2 { font-size: 22px;}
+h3 { font-size: 18px;}
+h4 { font-size: 14px;}
+
+a {color: #F39C12;}
+
+.form-control, select, textarea { width: 100%;}
+.form-control { font-size: 12px; padding: 5px 7px; margin-bottom: 10px;}
+
+
+.btn { padding: 8px 24px; background: #F39C12; border: none; color: #f5f5f5; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: 300;}
+.btn:hover {}
+.btn-lg { font-size: 90%; padding: 10px 26px;}
+.btn-sm { font-size: 70%; padding: 6px 22px;}
+.btn-xs { font-size: 60%; padding: 4px 20px;}
+
+/* Banner styles */
+.sector-overlay { background: rgba(0,0,0,0.8);height: 100%; width: 100%; overflow: auto;}
+.sector-login {background: url("https://hd.unsplash.com/photo-1444212568492-d2799d30943b") center no-repeat; background-size: cover; height: 65%; width: 100%;}
+.sector-register {background: url("https://hd.unsplash.com/photo-1416331108676-a22ccb276e35") center no-repeat; background-size: cover; height: 65%; width: 100%;}
+
+/* Navigation Styling */
+.navigation { height: 90px; background: #ffffff; border-bottom: 1px solid #f9f9f9; box-shadow: 1px 1px 1px 1px #F0F0F0;}
+.logo {}
+.logo > img { width: 200px; margin: 29px 0px; }
+.links { overflow: auto; height: 90px; display: inline-block; float: right;}
+.links ul { margin: 0; padding: 0;}
+.links ul li{ list-style: none; float: left; line-height: 90px; padding: 0px 15px;}
+.links ul li a { display: block; text-transform: uppercase; text-decoration: none; font-size: 12px; letter-spacing: 1px; color: #555555;}
+.links ul li a:hover { -webkit-transition: color 200ms ease-in-out; -moz-transition: color 200ms ease-in-out; -ms-transition: color 200ms ease-in-out;  -o-transition: color 200ms ease-in-out; transition: color 200ms ease-in-out; color: #F39C12;}
+
+/* Content */
+.content { margin: 10px 0px; padding: 10px 5px; overflow: auto;}
+
+
+/* login form style */
+.login-form .form-control { color: #ffffff; font-size: 12px; padding: 9px 7px; margin-bottom: 10px; background: rgba(255,255,255,0.2); border-radius: 0px; border: 0px solid rgba(255,255,255,0.3); }
+.login-form .btn { border-radius: 0px; border: 0px solid rgba(255,255,255,0.3); background: rgba(243,156,18,0.7); width: 100%; cursor: pointer;}
+
+
+/* footer */
+
+.footer { background: #444444; color: #cccccc;}
+.footer-links { padding: 20px 0px;}
+.credits {height: 50px; line-height: 50px;}
+
+.footer-links > div > h4 { text-transform: uppercase; font-size: 12px; font-weight: 700; letter-spacing: 1px;}
+.footer-links ul {padding: 0;}
+.footer-links ul li { list-style: none; font-size: 12px;}
+.footer-links ul li a {color: #999999;}
+
+.credits { font-size: 11px; color: #999999; background: #333333;}
