@@ -1,41 +1,91 @@
 <?php
 
 //  Group #     :
-//  Members     : Joseph Dagunan, David Bond
+//  Members     : Joseph Dagunan, David Bond, Alex Waddell, Braydon Duprey
 //  File name   : users.class.php
 
 class Users
 {
-    public function __construct()
-    {
+    private $userId;
+    private $password;
+    private $userType;
+    private $emailAddress;
+    private $enrolDate;
+    private $lastAccess;
+
+    private function getUserId() {
+        return $this->userId;
+    }
+
+    private function setUserId($userId) {
+        $this->userId = $userId;
+    }
+
+    private function getPassword() {
+        return $this->password;
+    }
+
+    private function setPassword($password) {
+        $this->password = $password;
+    }
+
+    private function getUserType() {
+        return $this->userType;
+    }
+
+    private function setUserType($userType) {
+        $this->userType = $userType;
+    }
+
+    private function getEmailAddress() {
+        return $this->emailAddress;
+    }
+
+    private function setEmailAddress($emailAddress) {
+        $this->emailAddress = $emailAddress;
+    }
+
+    private function getEnroldate() {
+        return $this->enrolDate;
+    }
+
+    private function setEnroldate($enrolDate) {
+        $this->enrolDate = $enrolDate;
+    }
+
+    private function getLastAccess() {
+        return $this->lastAccess;
+    }
+
+    private function setLastAccess($lastAccess) {
+        $this->lastAccess = $lastAccess;
+    }
+
+
+
+    public function GetUser($userID){
 
     }
 
     public function GetAllUsers(){
-        $usersArray = Array();
-
-
-
-        return $usersArray;
-    }
-
-    public function GetUser($userID){
-
-        $query = "SELECT * users WHERE user_id = '$userID'";
-
-        $userArrayInfo = Array(
-            'user_id' => "user_id",
-            'password' => "password",
-            'user_type' => "user_type",
-            'email_address' => "email_address",
-            'enrol_date' => "enrol_date",
-            'last_access' => "last_access"
-        );
-
-        return $userArrayInfo;
-    }
-
-    public function UpdateUser($userID){
 
     }
+
+    public function AddUser($email, $password){
+
+    }
+
+    public function UpdateUser($email, $password, $userType){
+
+    }
+
+    public function DeleteUser($userId){
+
+    }
+
+    public function Login($email, $address){
+
+    }
+
+
 }
