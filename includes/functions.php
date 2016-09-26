@@ -18,7 +18,7 @@ function UserLogin($email, $password){
 
 
 }
-UserLogin();
+UserLogin("jdoe@durhamcollege.ca","");
 // Function that renders the Copyrights
 function display_copyright(){
 
