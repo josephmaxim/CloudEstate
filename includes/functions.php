@@ -10,7 +10,10 @@ function UserLogin($email, $password){
     $user = new Users();
 
     // returns an object or boolean value.
-    $userInfo = $user->GetUser($email);
+
+
+    //testing
+    $user->GetUser($email);
 
 
 

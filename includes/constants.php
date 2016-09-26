@@ -4,7 +4,7 @@
 //  Members     : Joseph Dagunan, David Bond
 //  File name   : constants.php
 
-DEFINE('DBHOST', "");
-DEFINE('DBNAME', "");
-DEFINE('DBUSER', "");
-DEFINE('DBPASS', "");
+DEFINE('DBHOST', "localhost");
+DEFINE('DBNAME', "group15_db");
+DEFINE('DBUSER', "group15_admin");
+DEFINE('DBPASS', "YouTheMan69");

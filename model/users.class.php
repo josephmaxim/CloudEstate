@@ -72,11 +72,18 @@ class Users
 
         // checks if there's a match
         if ($records === 1){
-            for($i = 0; $ri < $numrows; $ri++) {
-                echo "<tr>\n";
-                $row = pg_fetch_array($result, $ri);
-                echo " <td>", $row["fname"], "</td>";
-            }
+            $row = pg_fetch_array($result, 0, PGSQL_NUM);
+
+            $this->setUserId($row["user_id"]);
+            $this->setPassword($row["password"]);
+            $this->setEmailAddress($row["email_address"]);
+            $this->setUserType($row["user_type"]);
+            $this->setEnroldate($row["enrol_date"]);
+            $this->setLastAccess($row["last_access"]);
+
+            // remove just for debugging.
+            echo $this->getEmailAddress();
+
         }else{
             return false;
         }
