@@ -63,7 +63,23 @@ class Users
 
 
 
-    public function GetUser($userID){
+    public function GetUser($email){
+        $userData = array();
+
+        $query = "SELECT * FROM users WHERE email='$email'";
+        $result = pg_query(db_connect(), $query);
+        $records = pg_num_rows($result);
+
+        // checks if there's a match
+        if ($records === 1){
+            for($i = 0; $ri < $numrows; $ri++) {
+                echo "<tr>\n";
+                $row = pg_fetch_array($result, $ri);
+                echo " <td>", $row["fname"], "</td>";
+            }
+        }else{
+            return false;
+        }
 
     }
 
@@ -80,10 +96,6 @@ class Users
     }
 
     public function DeleteUser($userId){
-
-    }
-
-    public function Login($email, $address){
 
     }
 

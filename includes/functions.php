@@ -5,6 +5,17 @@
 //  File name   : function.php
 
 
+function UserLogin($email, $password){
+
+    $user = new Users();
+
+    // returns an object or boolean value.
+    $userInfo = $user->GetUser($email);
+
+
+
+}
+UserLogin();
 // Function that renders the Copyrights
 function display_copyright(){
 
