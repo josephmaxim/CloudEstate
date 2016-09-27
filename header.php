@@ -10,7 +10,8 @@ require_once('includes/constants.php');
 require_once('includes/db.php');
 require_once('includes/functions.php');
 
-
+// Start Sessions
+session_start();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -40,9 +41,14 @@ require_once('includes/functions.php');
                 <div class="links">
                     <ul>
                         <li><a href="index.php">Home</a></li>
-                        <li><a href="login.php">Login</a></li>
-                        <li><a href="register.php">Register</a></li>
                         <li><a href="listing-search.php">Search Listing</a></li>
+                        <?php
+                        if(SessionCheck() == true){
+                            echo '<li><a href="login.php">Login</a></li><li><a href="register.php">Register</a></li>';
+                        }else{
+                            echo '<li><a href="welcome.php">Account</a></li><li><a href="action.php?act=logout">Logout</a></li>';
+                        }
+                        ?>
                     </ul>
                 </div>
             </div>

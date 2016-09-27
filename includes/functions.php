@@ -5,16 +5,23 @@
 //  File name   : function.php
 
 include_once('users.class.php');
+$_SESSION['UserData'] = array();
 
 function UserLogin($email, $password){
-
     $user = new Users();
     if($user->GetUser($email) == true){
         if($password == $user->getPassword()){
-            echo "match found.";
+            $userData = array(
+                'user_id' => $user->getUserId(),
+                'password' => $user->getPassword(),
+                'email' => $user->getEmailAddress(),
+                'user_type' => $user->getUserType(),
+                'enrol_date' => $user->getEnroldate(),
+                'last_access' => $user->getLastAccess()
+            );
+            StartUserSession($userData);
             return true;
         }else{
-            echo "Email & password don't match!";
             return false;
         }
     }else{
@@ -23,6 +30,25 @@ function UserLogin($email, $password){
 
 }
 
+function StartUserSession($data){
+
+    $_SESSION['UserData'] = array(
+        'user_id' => $data['user_id'],
+        'password' => $data['password'],
+        'email' => $data['email'],
+        'user_type' => $data['user_type'],
+        'enrol_date' => $data['enrol_date'],
+        'last_access' => $data['last_access']
+    );
+}
+
+function SessionCheck(){
+    if($_SESSION['UserData']['user_id'] == ''){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 function Clean_Input($data) {
     $data = trim($data);

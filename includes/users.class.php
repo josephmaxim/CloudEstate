@@ -10,8 +10,6 @@ class Users
     private $lastAccess;
 
 
-
-
     public function getUserId() {
         return $this->userId;
     }

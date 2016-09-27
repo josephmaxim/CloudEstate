@@ -11,7 +11,11 @@ include('header.php');
 ?>
 
     <div class="container">
+        <?php
 
+        echo $_SESSION['UserData']['email'];
+
+        ?>
     </div>
 
 <?php

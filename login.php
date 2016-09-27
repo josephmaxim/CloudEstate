@@ -30,7 +30,7 @@ if (isset($_POST['submit'])){
 
     if (empty($error)){
         if(UserLogin($email,$pass)){
-            // start sessions here
+            header("Location: welcome.php");
         }else{
             array_push($error, "Email & password doesn't match!");
         }
