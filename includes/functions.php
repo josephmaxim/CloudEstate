@@ -1,7 +1,7 @@
 <?php
 
 //  Group #     :
-//  Members     : Joseph Dagunan, David Bond
+//  Members     : Joseph Dagunan, David Bond, Alex Waddell, Braydon Duprey
 //  File name   : function.php
 
 include_once('users.class.php');
@@ -12,19 +12,24 @@ function UserLogin($email, $password){
     if($user->GetUser($email) == true){
         if($password == $user->getPassword()){
             echo "match found.";
+            return true;
         }else{
             echo "Email & password don't match!";
+            return false;
         }
     }else{
-        echo "no results found.";
+        return false;
     }
 
 }
 
-//for debug only debug only
-UserLogin("joseph.dagunan@dmail.ca","test123");
 
-
+function Clean_Input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
 
 // Function that renders the Copyrights
 function display_copyright(){

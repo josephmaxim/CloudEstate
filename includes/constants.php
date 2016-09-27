@@ -1,7 +1,7 @@
 <?php
 
 //  Group #     :
-//  Members     : Joseph Dagunan, David Bond
+//  Members     : Joseph Dagunan, David Bond, Alex Waddell, Braydon Duprey
 //  File name   : constants.php
 
 DEFINE('DBHOST', "localhost");
