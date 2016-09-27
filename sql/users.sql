@@ -6,16 +6,16 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users
 (
-	user_id CHAR(20) PRIMARY KEY,
-	password CHAR(32),
-	user_type CHAR(1),
-	email_address CHAR(256),
+	user_id VARCHAR(20) PRIMARY KEY,
+	password VARCHAR(32),
+	user_type VARCHAR(1),
+	email_address VARCHAR(256),
 	enrol_date DATE,
 	last_access DATE
 );
 
-INSERT INTO users VALUES('jdoe', 'testpass', 'a', 'jdoe@durhamcollege.ca', '2016-09-08', '2016-09-08');
-INSERT INTO users VALUES('wsmith', 'abc123', 'a', 'wsmith@durhamcollege.ca', '2016-01-01', '2016-2-1');
-INSERT INTO users VALUES('bkwan', '123abc', 'a', 'bkwan@durhamcollege.ca', '2016-01-01', '2016-2-1');
-INSERT INTO users VALUES('tdelreal', 'horsemeat', 'a', 'tdelreal@durhamcollege.ca', '2016-01-01', '2016-2-1');
-INSERT INTO users VALUES('jcena', 'cowbell', 'a', 'jcena@durhamcollege.ca', '2016-01-01', '2016-2-1');
+INSERT INTO users VALUES('dagunanj', 'test123', 'a', 'joseph.dagunan@dmail.ca', '2016-09-08', '2016-09-08');
+INSERT INTO users VALUES('bondd', 'abc123', 'a', 'david.bond@dmail.caa', '2016-01-01', '2016-2-1');
+INSERT INTO users VALUES('waddella', '123abc', 'a', 'alexander.waddell@dmail.ca', '2016-01-01', '2016-2-1');
+INSERT INTO users VALUES('dupreyb', 'horsemeat', 'a', 'braydon.duprey@dmail.ca', '2016-01-01', '2016-2-1');
+INSERT INTO users VALUES('jcena', 'cowbell', 'a', 'jcena@dmail.ca', '2016-01-01', '2016-2-1');
