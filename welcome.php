@@ -8,14 +8,26 @@ $title = "Cloud Estate | Welcome";
 
 include('header.php');
 
+if(SessionCheck() == false){
+    header("Location: index.php");
+}
+
 ?>
 
     <div class="container">
-        <?php
+        <div class="row">
+            <div class="col-lg-12">
+                edit this code for debugging only
+                <ul>
+                    <?php
+                        foreach ($_SESSION['UserData'] as $key => $value){
+                            echo "<li>". $key . ":" . $value ."</li>";
+                        }
 
-        echo $_SESSION['UserData']['email'];
-
-        ?>
+                    ?>
+                </ul>
+            </div>
+        </div>
     </div>
 
 <?php

@@ -43,7 +43,7 @@ session_start();
                         <li><a href="index.php">Home</a></li>
                         <li><a href="listing-search.php">Search Listing</a></li>
                         <?php
-                        if(SessionCheck() == true){
+                        if(SessionCheck() == false){
                             echo '<li><a href="login.php">Login</a></li><li><a href="register.php">Register</a></li>';
                         }else{
                             echo '<li><a href="welcome.php">Account</a></li><li><a href="action.php?act=logout">Logout</a></li>';

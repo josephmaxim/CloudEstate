@@ -43,10 +43,10 @@ function StartUserSession($data){
 }
 
 function SessionCheck(){
-    if($_SESSION['UserData']['user_id'] == ''){
-        return true;
-    }else{
+    if(empty($_SESSION['UserData']['user_id'])){
         return false;
+    }else{
+        return true;
     }
 }
 

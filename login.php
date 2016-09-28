@@ -8,6 +8,10 @@ $title = "Cloud Estate | Login";
 
 include('header.php');
 
+if(SessionCheck() == true){
+    header("Location: index.php");
+}
+
 $email = '';
 $pass = '';
 $error = array();
