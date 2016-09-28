@@ -8,7 +8,8 @@ $title = "Cloud Estate | Login";
 
 include('header.php');
 
-if(SessionCheck() == true){
+if(SessionCheck() == true)
+{
     header("Location: index.php");
 }
 
@@ -16,26 +17,37 @@ $email = '';
 $pass = '';
 $error = array();
 
-if (isset($_POST['submit'])){
+if (isset($_POST['submit']))
+{
     $email = $_POST['email'];
     $pass = $_POST['password'];
 
-    if(!isset($email) || $email == '') {
+    if(!isset($email) || $email == '') 
+	{
         array_push($error, "Please enter an email address!");
-    }else{
+    }
+	else
+	{
         $email = Clean_Input($_POST['email']);
     }
 
-    if(!isset($pass) || $pass == '') {
+    if(!isset($pass) || $pass == '') 
+	{
         array_push($error, "Please enter a password!");
-    }else{
+    }
+	else
+	{
         $pass = Clean_Input($_POST['password']);
     }
 
-    if (empty($error)){
-        if(UserLogin($email,$pass)){
+    if (empty($error))
+	{
+        if(UserLogin($email,$pass))
+		{
             header("Location: welcome.php");
-        }else{
+        }
+		else
+		{
             array_push($error, "Email & password doesn't match!");
         }
     }
@@ -51,10 +63,12 @@ if (isset($_POST['submit'])){
                         <h3 class="text-center">Member Login</h3>
                         <br/>
                         <?php
-                        if(!empty($error)){
-                        echo "<fieldset style='border: 1px solid red; color: red;'><legend>Error:</legend><ul>";
-                                foreach($error as $msg){
-                                echo "<li>$msg</li>";
+                        if(!empty($error))
+						{
+							echo "<fieldset style='border: 1px solid red; color: red;'><legend>Error:</legend><ul>";
+                                foreach($error as $msg)
+								{
+									echo "<li>$msg</li>";
                                 }
                                 echo "</ul></fieldset><br />";
                         }
