@@ -20,6 +20,8 @@ h2 { font-size: 22px;}
 h3 { font-size: 18px;}
 h4 { font-size: 14px;}
 
+.header-light { color: #FFFFFF !important;}
+
 a {color: #F39C12;}
 
 .form-control, select, textarea { width: 100%;}

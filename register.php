@@ -15,7 +15,7 @@ include('header.php');
             <div class="container">
                 <div class="col-lg-6 col-lg-offset-3" style="padding: 100px 0px;">
                     <div class="col-lg-10 col-lg-offset-1">
-                        <h3 class="text-center">Register</h3>
+                        <h3 class="text-center header-light">Register</h3>
                         <br/>
                         <form class="login-form">
                             <div class="input-group">

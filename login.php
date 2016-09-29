@@ -60,7 +60,7 @@ if (isset($_POST['submit']))
             <div class="container">
                 <div class="col-lg-6 col-lg-offset-3" style="padding: 100px 0px;">
                     <div class="col-lg-10 col-lg-offset-1">
-                        <h3 class="text-center">Member Login</h3>
+                        <h3 class="text-center header-light">Member Login</h3>
                         <br/>
                         <?php
                         if(!empty($error))
