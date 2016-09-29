@@ -20,6 +20,7 @@ function UserLogin($email, $password){
                 'last_access' => $user->getLastAccess()
             );
             StartUserSession($userData);
+            $user->UpdateUser($user->getEmailAddress(),$user->getPassword(),$user->getUserType(),"getdate()");
             return true;
         }else{
             return false;
@@ -41,6 +42,14 @@ function StartUserSession($data){
         'last_access' => $data['last_access']
     );
 }
+
+function CurrentDateTime(){
+    date_default_timezone_set("America/Toronto");
+    $date = date("M j, Y  g:i a");
+
+    return $date;
+}
+echo CurrentDateTime();
 
 function SessionCheck(){
     if(empty($_SESSION['UserData']['user_id'])){

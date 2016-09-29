@@ -7,8 +7,8 @@
 
 // Include Files
 require_once('includes/constants.php');
-require_once('includes/db.php');
-require_once('includes/functions.php');
+require_once('includes/db.php');            // Note: We had to require db.php first before functions because we are using
+require_once('includes/functions.php');     //       the connect function in functions.php.
 
 // Start Sessions
 session_start();

@@ -62,8 +62,11 @@ class Users
 
     public function GetUser($email){
 
-        $query = "SELECT * FROM users WHERE email_address='$email'";
-        $result = pg_query(db_connect(), $query);
+        $dbconn = db_connect();
+
+        $result = pg_prepare($dbconn, "my_query","SELECT * FROM users WHERE email_address=$1");
+        $result = pg_execute($dbconn, "my_query", array("$email"));
+
         $row = pg_fetch_assoc($result);
 
         if($row){
@@ -87,7 +90,11 @@ class Users
 
     }
 
-    public function UpdateUser($email, $password, $userType){
+    public function UpdateUser($email, $password, $userType, $last_access){
+        $dbconn = db_connect();
+
+        pg_prepare($dbconn, "my_query","UPDATE users SET email_address=$1, password=$2, user_type=$3, last_access=$4 WHERE email_address='". $this->getEmailAddress() ."';");
+        pg_execute($dbconn, "my_query", array("$email", "$password", "$userType", "$last_access"));
 
     }
 

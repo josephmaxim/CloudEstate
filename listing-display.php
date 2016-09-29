@@ -1,9 +1,10 @@
 <?php
+
 //  Group #     : 15
 //  Members     : Joseph Dagunan, David Bond, Alex Waddell, Braydon Duprey
-//  File name   : index.php
+//  File name   : listing-display.php
 
-$title = "Cloud Estate | Home";
+$title = "Cloud Estate | Listing Display";
 
 include('header.php');
 
@@ -12,7 +13,7 @@ include('header.php');
 <div class="container">
     <br />
     <br />
-    <h1 class="text-center">Welcome to Cloud Estate</h1>
+    <h1 class="text-center">Listing Display</h1>
     <br />
     <br />
 </div>

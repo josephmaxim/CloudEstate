@@ -1,7 +1,7 @@
 <?php
 
-//  Group #     :
-//  Members     : Joseph Dagunan, David Bond
+//  Group #     : 15
+//  Members     : Joseph Dagunan, David Bond, Alex Waddell, Braydon Duprey
 //  File name   : search-result.php
 
 $title = "Cloud Estate | Search Results";

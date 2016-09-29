@@ -6,12 +6,12 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users
 (
-	user_id VARCHAR(20) PRIMARY KEY,
-	password VARCHAR(32),
-	user_type VARCHAR(1),
-	email_address VARCHAR(256),
-	enrol_date DATE,
-	last_access DATE
+	user_id VARCHAR(20) PRIMARY KEY NOT NULL,
+	password VARCHAR(32) NOT NULL,
+	user_type VARCHAR(1) NOT NULL,
+	email_address VARCHAR(256) NOT NULL,
+	enrol_date DATE NOT NULL,
+	last_access DATE NOT NULL
 );
 
 INSERT INTO users VALUES('dagunanj', 'test123', 'a', 'joseph.dagunan@dcmail.ca', '2016-09-08', '2016-09-08');
