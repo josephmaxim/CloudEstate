@@ -1,7 +1,7 @@
 <?php
 
 //  Group #     : 15
-//  Members     : Joseph Dagunan, David Bond, Alex Waddell
+//  Members     : Joseph Dagunan, David Bond, Alex Waddell, Braydon Duprey
 //  File name   : header.php
 
 

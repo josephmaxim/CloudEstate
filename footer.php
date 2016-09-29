@@ -6,7 +6,7 @@
                     <h4>Group Members</h4>
                     <ul>
                         <li><a href="http://josephmaxim.io/">Joseph Dagunan</a></li>
-                        <li><a href="http://davidmichaelbond.com/">David Bond</a></li>
+                        <li><a href="http://housing.davidmichaelbond.com/login.php">David Bond</a></li>
                         <li><a href="#">Alex Waddell</a></li>
                         <li><a href="http://www.braydonduprey.com/">Braydon Duprey</a></li>
                     </ul>
