@@ -11,7 +11,7 @@ CREATE TABLE users
 	user_type VARCHAR(1) NOT NULL,
 	email_address VARCHAR(256) NOT NULL,
 	enrol_date DATE NOT NULL,
-	last_access DATE NOT NULL
+	last_access VARCHAR(25) NOT NULL
 );
 
 INSERT INTO users VALUES('dagunanj', 'test123', 'a', 'joseph.dagunan@dcmail.ca', '2016-09-08', '2016-09-08');
