@@ -47,7 +47,7 @@ a {color: #F39C12;}
 .links ul { margin: 0; padding: 0;}
 .links ul li{ list-style: none; float: left; line-height: 90px; padding: 0px 15px;}
 .links ul li a { display: block; text-transform: uppercase; text-decoration: none; font-size: 12px; letter-spacing: 1px; color: #555555;}
-.links ul li a:hover { -webkit-transition: color 200ms ease-in-out; -moz-transition: color 200ms ease-in-out; -ms-transition: color 200ms ease-in-out;  -o-transition: color 200ms ease-in-out; transition: color 200ms ease-in-out; color: #F39C12;}
+.links ul li a:hover { transition: color 200ms ease-in-out; color: #F39C12;}
 
 /* Content */
 .content { margin: 10px 0px; padding: 10px 5px; overflow: auto;}

@@ -34,7 +34,7 @@ session_start();
         <div class="row">
             <div class="col-lg-6">
                 <div class="logo">
-                    <img src="img/logo.png" alt="Cloud Estate">
+                    <img src="img/logo.png" alt="Cloud Estate"/>
                 </div>
             </div>
             <div class="col-lg-6">
