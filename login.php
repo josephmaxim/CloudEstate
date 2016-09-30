@@ -8,47 +8,61 @@ $title = "Cloud Estate | Login";
 
 include('header.php');
 
+// Check if there's an existing user session
 if(SessionCheck() == true)
 {
     header("Location: index.php");
 }
 
-$email = '';
+// Defining Variables
+$user_id = '';
 $pass = '';
 $error = array();
 
+// Check if user submits login form
 if (isset($_POST['submit']))
 {
-    $email = $_POST['email'];
+
+    // initialize input variables
+    $user_id = $_POST['user_id'];
     $pass = $_POST['password'];
 
-    if(!isset($email) || $email == '') 
+    // Check id User id is empty
+    if(!isset($user_id) || $user_id == '')
 	{
-        array_push($error, "Please enter an email address!");
+	    // add error message to error array
+        array_push($error, "Please enter your user ID!");
     }
 	else
 	{
-        $email = Clean_Input($_POST['email']);
+	    // sanitize input
+        $user_id = sanitizeInput($_POST['user_id']);
     }
 
+    // Check if password field is empty
     if(!isset($pass) || $pass == '') 
 	{
+        // add error message to error array
         array_push($error, "Please enter a password!");
     }
 	else
 	{
-        $pass = Clean_Input($_POST['password']);
+        // sanitize input
+        $pass = sanitizeInput($_POST['password']) ;
     }
 
+    // check if there is any errors
     if (empty($error))
 	{
-        if(UserLogin($email,$pass))
+	    // pass user input as parameters to the login function with user id and hashed password.
+        if(UserLogin($user_id,hashPassword($pass)))
 		{
             header("Location: welcome.php");
         }
 		else
 		{
-            array_push($error, "Email & password doesn't match!");
+            // add error message to error array
+            array_push($error, "User ID & password doesn't match!");
         }
     }
 
@@ -63,6 +77,8 @@ if (isset($_POST['submit']))
                         <h3 class="text-center header-light">Member Login</h3>
                         <br/>
                         <?php
+
+                        // Display existing errors
                         if(!empty($error))
 						{
 							echo "<fieldset style='border: 1px solid red; color: red;'><legend>Error:</legend><ul>";
@@ -75,7 +91,7 @@ if (isset($_POST['submit']))
                         ?>
                         <form class="login-form" method="post" action="<?php echo $_SERVER['PHP_SELF']?>">
                             <div class="input-group">
-                                <input type="text" class="form-control" value="<?php echo $email; ?>" placeholder="Email" name="email">
+                                <input type="text" class="form-control" value="<?php echo $user_id; ?>" placeholder="User ID" name="user_id">
                             </div>
                             <div class="input-group">
                                 <input type="password" class="form-control" value="<?php echo $pass; ?>" placeholder="Password" name="password">

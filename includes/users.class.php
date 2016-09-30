@@ -1,7 +1,13 @@
 <?php
-
+/**
+ *
+ *  Group #     : 15
+ *  @author     : Joseph Dagunan, David Bond, Alex Waddell, Braydon Duprey
+ *  File name   : users.class.php
+ */
 class Users
 {
+    // Define private variables
     private $userId;
     private $password;
     private $userType;
@@ -59,17 +65,26 @@ class Users
     }
 
 
+    /**
+     * Get User Credentials from the database
+     *
+     * @param string $user_id
+     * @return boolean
+     */
+    public function GetUser($user_id){
 
-    public function GetUser($email){
+        // Prepare the Query
+        $result = pg_prepare(db_connect(), "my_query","SELECT * FROM users WHERE user_id=$1");
+        // Execute Query
+        $result = pg_execute(db_connect(), "my_query", array($user_id));
 
-        $dbconn = db_connect();
-
-        $result = pg_prepare($dbconn, "my_query","SELECT * FROM users WHERE email_address=$1");
-        $result = pg_execute($dbconn, "my_query", array("$email"));
-
+        // Store data in row variable
         $row = pg_fetch_assoc($result);
 
+        // Checks if row exist
         if($row){
+
+            // Set user credentials to class variables
             $this->setUserId($row['user_id']);
             $this->setPassword($row['password']);
             $this->setEmailAddress($row['email_address']);
@@ -82,24 +97,30 @@ class Users
         }
     }
 
+    /**
+     * Get all users from the database
+     *
+     * @return object
+     */
     public function GetAllUsers(){
 
     }
 
-    public function AddUser($email, $password){
+    /**
+     * Update the last_access date of a user
+     *
+     * @param string $user_id
+     * @param string $date
+     * @return null
+     */
+    public function UpdateAccessDate($user_id, $date){
 
-    }
+        $sql = "UPDATE users SET last_access = $1 WHERE user_id = '".$user_id."';";
+        // Prepare SQL
+        pg_prepare(db_connect(),'Update_access', $sql);
 
-    public function UpdateUser($email, $password, $userType, $last_access){
-        $dbconn = db_connect();
-
-        pg_prepare($dbconn, "my_query","UPDATE users SET email_address=$1, password=$2, user_type=$3, last_access=$4 WHERE email_address='". $this->getEmailAddress() ."';");
-        pg_execute($dbconn, "my_query", array("$email", "$password", "$userType", "$last_access"));
-
-    }
-
-    public function DeleteUser($userId){
-
+        // Execute SQL
+        pg_execute(db_connect(),'Update_access', array($date)) or die("Error while inserting.");
     }
 
 
