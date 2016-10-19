@@ -13,10 +13,9 @@ require_once('includes/functions.php');     //       the connect function in fun
 // Start Sessions
 session_start();
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-
     <title><?php echo $title;?></title>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -29,29 +28,30 @@ session_start();
 <body>
 
 <!-- Navigation -->
-<div class="navigation">
+
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="logo">
-                    <img src="img/logo.png" alt="Cloud Estate"/>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="links">
-                    <ul>
-                        <li><a href="index.php">Home</a></li>
-                        <li><a href="listing-search.php">Search Listing</a></li>
-                        <?php
-                        if(SessionCheck() == false){
-                            echo '<li><a href="login.php">Login</a></li><li><a href="register.php">Register</a></li>';
-                        }else{
-                            echo '<li><a href="welcome.php">Account</a></li><li><a href="action.php?act=logout">Logout</a></li>';
-                        }
-                        ?>
-                    </ul>
-                </div>
-            </div>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <i class="fa fa-caret-down fa-lg" aria-hidden="true"></i>
+            </button>
+            <a class="navbar-brand" href="#">
+                <img src="img/logo.png" alt="Cloud Estate">
+            </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="listing-search.php">Search Listing</a></li>
+                <?php
+                if(SessionCheck() == false){
+                    echo '<li><a href="login.php">Login</a></li><li><a href="register.php">Register</a></li>';
+                }else{
+                    echo '<li><a href="welcome.php">Account</a></li><li><a href="action.php?act=logout">Logout</a></li>';
+                }
+                ?>
+            </ul>
         </div>
     </div>
-</div>
+</nav>
