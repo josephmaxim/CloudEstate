@@ -8,14 +8,7 @@ $title = "Cloud Estate | Home";
 
 include('header.php');
 include('names.php');
-	
-	// Declaration of the array that will store the calculated first and last names of the sample users and another array for all information needed to input into the database 
-	$user_first_last = array();
-	// User ID, Password, E-mail, User Access, Enroll Date, Last Access Date
-	$user_information = array();
-	
-	$email_string = array();
-	
+
 	// Variable declarations for the length of the 3 arrays being dealt with in this script for efficient access in comparison 
 	$last_names_length = count($last_names);
 	$m_names_length = count($male_names);
@@ -24,14 +17,15 @@ include('names.php');
 	// Constants defined for the date that all samples users last accessed and enrolled 
 	DEFINE('enroll_date', "2016-10-19");
 	DEFINE('last_access', "2016-10-19");
-
-	// Information to be input to user_information array 
-	$user_ID;
+	
+if (isset($_POST['submit']))
+{
 	
 	// This loop sequence will run through all three arrays of names to randomly assign 50 males and 50 females to the user_first_last array 
 	for ($counter = 0; $counter < 100; $counter++)
 	{	
-		$first, $last;
+		$first;
+		$last;
 
 		if ($counter % 2 == 0)
 		{
@@ -47,25 +41,34 @@ include('names.php');
 		$email = $first . "." . $last . "@dcmail.ca";
 		$password = hashPassword(encryptPassword("testing" . $counter));
 
-		$qry = "INSERT INTO users VALUES('".$user_ID."', '".$password."', '".$email."', 'a', '2016-10-20', '2016-10-20')";
+		$qry = "INSERT INTO users VALUES('".$user_ID."', '".$password."', '".$email."', 'a', '"enroll_date"', '".last_access."')";
 		
 		$result = pg_query(db_connect(), $qry);
+		
+		if($result)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
-	for ($counter = 0; $counter < 100; $counter++)
-	{	
-		
-	}
+}
+	
 ?>
 
-<div class="container">
-    <br />
-    <br />
-    <h1 class="text-center">Welcome to Cloud Estate</h1>
-    <br />
-    <br />
-</div>
-
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>" >
+	<div class="container">
+    	<br />
+    	<br />
+    	<h1 class="text-center">Welcome to Cloud Estate</h1>
+    	<br />
+    	<br />
+		<input type="submit" value = "Populate Database" name="submit" />
+	</div>
+</form>
 <?php
 include('footer.php');
 ?>
