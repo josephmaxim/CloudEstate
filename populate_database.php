@@ -8,15 +8,10 @@ session_start();
 
 $title = "Cloud Estate | Home";
 
-include('header.php');
+include('includes/header.php');
 include ('includes/functions.php');
 include('names.php');
 
-	$user_id_array = array();
-	$user_first_array = array();
-	$user_last_array = array();
-	$gender_array = array();
-	
 	$street_names = array("Rose Street", "Academy Street", "3rd Street West", "Fawn Lane", "Church Street North", "Main Street West", "5th Street West", "Washington Avenue", "Main Street South", "Inverness Drive");
 	$provinces = array("BC", "SA", "MA", "AL", "ON", "QB", "NS", "NL", "PE");
 	
@@ -37,30 +32,43 @@ include('names.php');
 	
 if (isset($_POST['submit']))
 {
-	
-	echo "<table border=\"1\">";
-	echo "<tr><td><b>USER</b></td><td><b>PASS</b></td><td><b>E-MAIL<b/></td><td><b>ACCOUNT TYPE</b></td><td><b>ENROLL DATE</b></td><td><b>LAST ACCESS</b></td></tr>";
-	
+
 	// This loop sequence will run through all three arrays of names to randomly assign 50 males and 50 females to the user_first_last array 
 	for ($counter = 0; $counter < 100; $counter++)
 	{	
-		if ($counter % 2 == 0)
+		$data_users = array();
+		$data_people = array();
+		
+	
+		$r = rand(0, 3);
+	
+		if ($r == 0)
 		{
-			strtolower($first = $male_names[rand(0, $m_names_length)]);
-			$gender_array[$counter] = 0;
+			$first = $male_names[rand(0, $m_names_length)];
+			$salutation = "Mr.";
 		}
-		else
+		else if ($r == 1)
 		{
-			strtolower($first = $female_names[rand(0, $f_names_length)]);
-			$gender_array[$counter] = 1;
+			$first = $male_names[rand(0, $m_names_length)];
+			
+			$salutation = "Mr.";
+		}
+		else if ($r == 2)
+		{
+			$first = $female_names[rand(0, $f_names_length)];
+			
+			$salutation = "Ms.";
+		}
+		else if ($r == 3)
+		{
+			$first = $female_names[rand(0, $f_names_length)];
+			
+			$salutation = "Mrs.";
 		}
 		
-		$last = strtolower($last_names[rand(0, $last_names_length)]);
-		$user_ID = strtolower(substr($first, 0, 1)) . $last;
-		array_push($user_id_array, $user_ID);
-		array_push($user_first_array, $first);
-		array_push($user_last_array, $last);
-		$email = strtolower($first) . "." . $last . "@dcmail.ca";
+		$last = $last_names[rand(0, $last_names_length)];
+		$user_ID = substr($first, 0, 1) . $last;
+		$email = $first . "." . $last . "@dcmail.ca";
 		$password = hashPassword(encryptPassword("testing" . $counter));
 		$account_type = 'C';
 		$preferred_contact_method = 'e';
@@ -83,56 +91,19 @@ if (isset($_POST['submit']))
 		{
 			$account_type = SUSPENDED_USER;
 		} 
-		
-		echo "<tr><td>".$user_ID."</td><td>".$password."</td><td>".$email."</td><td>".$account_type."</td><td>".enroll_date."</td><td>".last_access."</td></tr>";
-	}
 	
-	echo "</table>";
-	
-
-	echo "<table border=\"1\">";
-	echo "<tr><td><b>USER ID</b></td><td><b>SALUTATION</b></td><td><b>FIRST NAME<b/></td><td><b>LAST NAME</b></td><td><b>STREET ADDRESS 1</b></td><td><b>STREET ADDRESS 2</b></td><td><b>CITY</b></td><td><b>PROVINCE</b></td>";
-	echo "<td><b>POSTAL CODE</b></td><td><b>PRIMARY PHONE</b></td><td><b>SECONDARY PHONE<b/></td><td><b>FAX NUMBER</b></td><td><b>PREFERRED CONTACT METHOD</b></td></tr>";
+		$data_users[0] = $user_ID;
+		$data_users[1] = $password;
+		$data_users[2] = $email;
+		$data_users[3] = $account_type;
 	
 	
-	for ($counter = 0; $counter < 100; $counter++)
-	{
+	
+	
+		// People table
+	
 		$rand = rand(0, 99);
-		$user_ID = $user_id_array[$counter];
-		
-		if ($gender_array[$counter] == 0)
-		{
-			if ($rand > 0 && $rand < 80)
-			{
-				$salutation = "Mr.";
-			}
-			else if ($rand >= 80 && $rand < 90)
-			{
-				$salutation = "Sir.";
-			}
-			else if ($rand >= 90 && $rand <= 99)
-			{
-				$saltation = "Dr.";
-			}
-		}
-		else if ($gender_array[$counter] == 1)
-		{
-			if ($rand > 0 && $rand < 40)
-			{
-				$salutation = "Ms.";
-			}
-			else if ($rand >= 40 && $rand < 90)
-			{
-				$salutation = "Mrs.";
-			}
-			else if ($rand >= 90 && $rand <= 99)
-			{
-				$saltation = "Dr.";
-			}
-		}
-		
-		$first = strtolower($user_first_array[$counter]);
-		$last = strtolower($user_last_array[$counter]);
+
 		$street_address_1 = rand(1, 1000) . ' ' . $street_names[rand(0, 9)];
 		$street_address_2 = "  ";
 		$province = $provinces[rand(0, 8)];
@@ -277,14 +248,35 @@ if (isset($_POST['submit']))
 				$preferred_contact_method = "l";
 			}
 			
-			echo "<tr><td>".$user_ID."</td><td>".$saltation."</td><td>".$first."</td><td>".$last."</td><td>".$street_address_1."</td>
-			<td>".$street_address_2."</td><td>".$city."</td><td>".$province."</td>";
-			echo "<td>".$postal_code."</td><td>".$phone_number."</td><td>".$second_phone_number."</td><td>".$fax_number."</td><td>".$preferred_contact_method."</td></tr>";
+		$data_people[0] = $user_ID;
+		$data_people[1] = $first;
+		$data_people[2] = $last;
+		$data_people[3] = $street_address_1;
+		$data_people[4] = $street_address_2;
+		$data_people[5] = $province;
+		$data_people[6] = $city;
+		$data_people[7] = $postal_code;
+		$data_people[8] = $phone_number;
+		$data_people[9] = $second_phone_number;
+		$data_people[10] = $second_phone_number;
+		$data_people[11] = $second_phone_number;
+		$data_people[12] = $fax_number;
+		$data_people[13] = $preferred_contact_method;
 	}
 	
+	// Prepare the Query
+    	pg_prepare(db_connect(), "Insert_Users","INSERT INTO users VALUES($1, $4, $3, $2, CURRENT_DATE, CURRENT_DATE);");
+    	// Execute Query
+    	$result = pg_execute(db_connect(), "Insert_Users", $data_users);
+    	
+    	// Prepare the Query
+    	pg_prepare(db_connect(), "Insert_Users","INSERT INTO users VALUES($1, $4, $3, $2, CURRENT_DATE, CURRENT_DATE);");
+    	// Execute Query
+    	$result = pg_execute(db_connect(), "Insert_Users", $data_people);
 	
-	echo "</table>";
 }
+	
+
 	
 ?>
 
@@ -299,5 +291,5 @@ if (isset($_POST['submit']))
 	</div>
 </form>
 <?php
-include('footer.php');
+include('includes/footer.php');
 ?>
