@@ -13,127 +13,211 @@ if(SessionCheck() == false){
     header("Location: index.php");
 }
 
+// load user profile from database
+$userData = getUserProfile($_SESSION['userData']['userID']);
+
+$userInput = array(
+    'email_address' => '',
+    'user_type' => '',
+    'salutation' => '',
+    'first_name' => '',
+    'last_name' => '',
+    'street_address_1' => '',
+    'street_address_2' => '',
+    'city' => '',
+    'province' => '',
+    'postal_code' => '',
+    'primary_phone_number' => '',
+    'secondary_phone_number' => '',
+    'fax_number' => '',
+    'preferred_contact_method' => ''
+);
+$error = array();
+$changed = false;
+
+if (isset($_POST['submit']))
+{
+
+    // initialize input variables
+    $userInput = array(
+        'email_address' => $_POST['email'],
+        'user_type' => $_POST['type'],
+        'salutation' => $_POST['salutation'],
+        'first_name' => $_POST['fname'],
+        'last_name' => $_POST['lname'],
+        'street_address_1' => $_POST['address1'],
+        'street_address_2' => $_POST['address2'],
+        'city' => $_POST['city'],
+        'province' => $_POST['province'],
+        'postal_code' => $_POST['postal'],
+        'primary_phone_number' => $_POST['pphone'],
+        'secondary_phone_number' => $_POST['secphone'],
+        'fax_number' => $_POST['faxnum'],
+        'preferred_contact_method' =>  $_POST['type']
+    );
+
+    // check if there is any errors
+    if (empty($error))
+    {
+        if(editUserProfile($_SESSION['userData']['userID'], $userInput)){
+            $changed = true;
+        }else{
+            array_push($error,"There was an error while saving your changes.");
+        }
+    }
+
+}
+
 ?>
 
     <section class="sector-white">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-lg-offset-3">
+                    <?php
+                        if($changed)
+                        {
+                            ?>
+                            <div  class="alert alert-success animated bounceIn">
+                                <h1>Profile Successfully Changed</h1>
+                                <a href="welcome.php">View Profile.</a>
+                            </div>
+                            <?php
+                        }else{
+                            ?>
+
                     <h2>Edit Profile</h2>
                     <br/>
+                    <?php
+
+                    // Display existing errors
+                    if(!empty($error))
+                    {
+                        echo '<div  class="alert alert-danger animated bounceIn" role="alert">';
+                        foreach($error as $msg)
+                        {
+                            echo '&middot;  ' . $msg . '<br />';
+                        }
+                        echo '</div>';
+                    }
+                    ?>
                     <form class="register-form" method="post" action="<?php echo $_SERVER['PHP_SELF']?>">
 
-                        <div class="input-group">
-                            <span class="input-group-addon" id="userID"><span class="glyphicon glyphicon-user"></span></span>
-                            <input type="text" class="form-control" disabled value="<?php ?>" placeholder="User ID" name="user_id" aria-describedby="userID">
-                        </div>
-
-                        <div class="input-group">
-                            <span class="input-group-addon" id="email"><span class="glyphicon glyphicon-envelope"></span></span>
-                            <input type="email" class="form-control" value="<?php ?>" placeholder="Email" name="email" aria-describedby="email">
-                        </div>
-
-                        <div class="input-group">
-                            <span class="input-group-addon" id="salutation"><span class="glyphicon glyphicon-briefcase"></span></span>
-                            <input type="text" class="form-control" value="<?php ?>" placeholder="Salutation" name="salutation" aria-describedby="salutation">
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="fname"><span class="glyphicon glyphicon-envelope"></span></span>
-                                    <input type="email" class="form-control" value="<?php ?>" placeholder="First Name" name="fname" aria-describedby="fname">
-                                </div><!-- /input-group -->
-                            </div><!-- /.col-lg-6 -->
-                            <div class="col-lg-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="lname"><span class="glyphicon glyphicon-envelope"></span></span>
-                                    <input type="email" class="form-control" value="<?php ?>" placeholder="Last Name" name="lname" aria-describedby="lname">
-                                </div><!-- /input-group -->
-                            </div><!-- /.col-lg-6 -->
-                        </div><!-- /.row -->
-
-                        <div class="input-group">
-                            <span class="input-group-addon" id="address1"><span class="glyphicon glyphicon-globe"></span></span>
-                            <input type="text" class="form-control" value="<?php ?>" placeholder="Address 1" name="address1" aria-describedby="address1">
-                        </div>
-
-                        <div class="input-group">
-                            <span class="input-group-addon" id="address2"><span class="glyphicon glyphicon-globe"></span></span>
-                            <input type="text" class="form-control" value="<?php ?>" placeholder="Address 2" name="salutation" aria-describedby="address2">
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="city"><span class="glyphicon glyphicon-globe"></span></span>
-                                    <input type="text" class="form-control" value="<?php ?>" placeholder="City" name="city" aria-describedby="city">
-                                </div>
-                            </div><!-- /.col-lg-6 -->
-                            <div class="col-lg-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="province"><span class="glyphicon glyphicon-globe"></span></span>
-                                    <input type="text" class="form-control" value="<?php ?>" placeholder="Province" name="province" aria-describedby="province">
-                                </div>
-                            </div><!-- /.col-lg-6 -->
-                        </div><!-- /.row -->
-
-                        <div class="input-group">
-                            <span class="input-group-addon" id="postal"><span class="glyphicon glyphicon-globe"></span></span>
-                            <input type="text" class="form-control" value="<?php ?>" placeholder="Postal" name="postal" aria-describedby="postal">
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="pphone"><span class="glyphicon glyphicon-earphone"></span></span>
-                                    <input type="text" class="form-control" value="<?php ?>" placeholder="Primary Phone" name="pphone" aria-describedby="pphone">
-                                </div>
-                            </div><!-- /.col-lg-6 -->
-                            <div class="col-lg-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="secphone"><span class="glyphicon glyphicon-phone-alt"></span></span>
-                                    <input type="text" class="form-control" value="<?php ?>" placeholder="Secondary Phone" name="secphone" aria-describedby="secphone">
-                                </div>
-                            </div><!-- /.col-lg-6 -->
-                        </div><!-- /.row -->
-
-                        <div class="input-group">
-                            <span class="input-group-addon" id="faxnum"><span class="glyphicon glyphicon-print"></span></span>
-                            <input type="text" class="form-control" value="<?php ?>" placeholder="Fax Number" name="faxnum" aria-describedby="faxnum">
+                        <div class="form-group">
+                            <label for="userID">User ID:</label>
+                            <input type="text" disabled class="form-control" id="userID" placeholder="User ID" value="<?php echo $userData['userID'];?>" name="user_id">
                         </div>
 
                         <div class="form-group">
+                            <label for="email">Email address:</label>
+                            <input type="email" class="form-control" id="email" placeholder="Email" value="<?php echo $userData['email_address'];?>" name="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="salutation">Salutation:</label>
+                            <input type="text" class="form-control" id="salutation" placeholder="Salutation" value="<?php echo $userData['salutation'];?>" name="salutation">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="fname">First Name:</label>
+                                    <input type="text" class="form-control" id="fname" placeholder="First Name" value="<?php echo $userData['first_name'];?>" name="fname">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="lname">Last Name:</label>
+                                    <input type="text" class="form-control" id="lname" placeholder="Last Name" value="<?php echo $userData['last_name'];?>" name="lname">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address1">Address 1:</label>
+                            <input type="text" class="form-control" id="address1" placeholder="Address 1" value="<?php echo $userData['street_address_1'];?>" name="address1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address2">Address 2:</label>
+                            <input type="text" class="form-control" id="address2" placeholder="Address 2" value="<?php echo $userData['street_address_2'];?>" name="address2">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="city">City:</label>
+                                    <input type="text" class="form-control" id="city" placeholder="City" value="<?php echo $userData['city'];?>" name="city">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="province">Province:</label>
+                                    <input type="text" class="form-control" id="province" placeholder="Province" value="<?php echo $userData['province'];?>" name="province">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postal">Postal:</label>
+                            <input type="text" class="form-control" id="postal" placeholder="Postal" value="<?php echo $userData['postal_code'];?>" name="postal">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="pphone">Primary Phone:</label>
+                                    <input type="text" class="form-control" id="pphone" placeholder="Primary Phone" value="<?php echo $userData['primary_phone_number'];?>" name="pphone">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="secphone">Secondary Phone:</label>
+                                    <input type="text" class="form-control" id="secphone" placeholder="Secondary Phone" value="<?php echo $userData['secondary_phone_number'];?>" name="secphone">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="secphfaxnumone">Fax Number:</label>
+                            <input type="text" class="form-control" id="faxnum" placeholder="Fax Number" value="<?php echo $userData['fax_number'];?>" name="faxnum">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="type">Preferred contact method:</label>
                             <select class="form-control mySelect"  name="type" id="type">
-                                <option value="0" disabled selected>
+                                <option <?php if($userData['preferred_contact_method'] == '0'){ echo 'selected="selected"';};?> value="0" disabled selected>
                                     Preferred contact method
                                 </option>
-                                <option value="e">
+                                <option <?php if($userData['preferred_contact_method'] == 'e'){ echo 'selected="selected"';};?> value="e">
                                     Email
                                 </option>
-                                <option  value="p">
+                                <option <?php if($userData['preferred_contact_method'] == 'p'){ echo 'selected="selected"';};?>  value="p">
                                     Phone
                                 </option>
-                                <option value="l">
+                                <option <?php if($userData['preferred_contact_method'] == 'l'){ echo 'selected="selected"';};?> value="l">
                                     Posted Mail
                                 </option>
                             </select>
                         </div>
 
-                        <div class="input-group">
-                            <span class="input-group-addon" id="pass"><span class="glyphicon glyphicon-lock"></span></span>
-                            <input type="password" class="form-control" value="<?php ?>" placeholder="New password" name="pass1" aria-describedby="pass">
-                        </div>
+<!--                        <div class="form-group">-->
+<!--                            <label for="pass">Password:</label>-->
+<!--                            <input type="password" class="form-control" id="pass" placeholder="Password"  name="pass">-->
+<!--                        </div>-->
+<!---->
+<!--                        <div class="form-group">-->
+<!--                            <label for="re_pass">Confirm new password:</label>-->
+<!--                            <input type="password" class="form-control" id="re_pass" placeholder="Confirm Password" name="re_pass">-->
+<!--                        </div>-->
 
-                        <div class="input-group">
-                            <span class="input-group-addon" id="re_pass"><span class="glyphicon glyphicon-lock"></span></span>
-                            <input type="password" class="form-control" value="<?php ?>" placeholder="Confirm new password" name="pass2" aria-describedby="re_pass">
-                        </div>
-
-                        <div class="login-form">
+                        <div class="login-form text-center">
                             <input type="submit" class="btn" name="submit" value="Save Changes">
                         </div>
                     </form>
+                            <?php
+                        }
+                    ?>
                 </div>
             </div>
         </div>

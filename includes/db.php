@@ -29,12 +29,42 @@ function is_user_id($userID){
     }
 }
 
-function build_simple_dropdown(){
+function build_simple_dropdown($value){
 
+    // pull from databse
+
+    echo '<div class="form-group">';
+    echo '<select class="form-control mySelect"  name="type" id="type">';
+    echo '<option value="0" disabled selected>Select an account type(Client/Agent)</option>';
+    foreach ($value as $val){
+        echo '<option value="'. $val .'">';
+
+        if($val == CLIENT){
+            echo 'I am a client';
+        }elseif ($val == AGENT){
+            echo 'I am an agent';
+        }
+
+        echo '</option>';
+    }
+    echo '</select></div>';
 }
 
-function build_dropdown(){
+function build_dropdown($value){
+    echo '<div class="form-group">';
+    echo '<select class="form-control mySelect"  name="type" id="type">';
+    foreach ($value as $val){
+        echo '<option value="'. $val .'">';
 
+        if($val == CLIENT){
+            echo 'I am a client';
+        }elseif ($val == AGENT){
+            echo 'I am an agent';
+        }
+
+        echo '</option>';
+    }
+    echo '</select></div>';
 }
 
 function build_radio(){

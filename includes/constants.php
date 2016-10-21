@@ -13,6 +13,9 @@ DEFINE('DBNAME', "group15_db");
 DEFINE('DBUSER', "group15_admin");
 DEFINE('DBPASS', "YouTheMan69");
 
+// Cookie Timeout
+DEFINE('TIMEOUT', 2592000); // 30 days
+
 // Account Type Identification
 DEFINE('ADMIN', "S");
 DEFINE('AGENT', "A");

@@ -59,8 +59,8 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
                     <p>
-                        <a href="http://validator.w3.org/check?uri=referer">
-                            <img style="width:50px; height:20px;" src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Strict" />
+                        <a href="https://validator.w3.org/nu/?doc=http%3A%2F%2Fopentech2.durhamcollege.org%2Fwebd3201%2Fgroup15%2F">
+                            <img style="width:50px; height:20px;" src="http://as76.net/com/img/valid-html5.png" alt="Valid XHTML 1.0 Strict" />
                         </a>
                         <a href="http://jigsaw.w3.org/css-validator/check/referer">
                             <img style="width:50px; height:20px;" src="http://jigsaw.w3.org/css-validator/images/vcss" alt="Valid CSS!" />

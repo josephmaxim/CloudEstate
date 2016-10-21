@@ -10,6 +10,12 @@ if(isset($act)){
         session_start();
         session_destroy();
 
+        // un set a cookie.
+        if (isset($_COOKIE['userLogin'])) {
+            unset($_COOKIE['userLogin']);
+            setcookie('userLogin', '', time() - 3600, '/');
+        }
+
         // redirect to index.php
         header("Location: index.php");
     }
