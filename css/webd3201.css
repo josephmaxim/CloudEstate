@@ -11,7 +11,7 @@ File name   : webd3201.css
 
 html, body {height: 100%;}
 html { font-family: 'Open Sans', sans-serif; font-weight: 300;}
-body { background: #fcfcfc; font-size: 12px!important;}
+body { background: #fcfcfc; font-size: 13px!important;}
 p { padding: 0; margin: 0;}
 
 h1,h2,h3,h4,h5,h6{ color: #222222; font-weight: 300; text-transform: uppercase;}
@@ -19,6 +19,10 @@ h1 { font-size: 26px;}
 h2 { font-size: 22px;}
 h3 { font-size: 18px;}
 h4 { font-size: 14px;}
+
+input, textarea, select , .input-group-addon{ border-radius: 0 !important; -webkit-appearance: none;}
+input , select , textarea, .input-group-addon { color: #909090; border: 1px solid #c0c0c0; font-size: 10px; font-weight: 300; -webkit-box-shadow: none !important; -moz-box-shadow: none !important; box-shadow: none !important; outline: none !important;}
+
 
 .btn { padding: 8px 24px; background: #ff8000; border: none; color: #f5f5f5; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: 300; border-radius: 2px;}
 .btn:hover { background: #FF9D39}
@@ -40,10 +44,11 @@ h4 { font-size: 14px;}
 .navbar-collapse {}
 
 /* Sectors */
-.sector-slider {}
+.sector-slider { overflow: hidden;}
 .sector-white { padding: 100px 0px;}
 .sector-blur { position: relative; overflow: auto; background: url(https://hd.unsplash.com/43/L6sQn4GyQdSBW7pLgEz7_DSC_0013.JPG) center no-repeat; background-size: cover;}
 .sector-blur-overlay { padding: 100px 0px; background: url(../img/blur.png) repeat;}
+.sector-login, .sector-signup { padding: 100px 0px;}
 
 /* Slides */
 .first-slide {background: url(https://hd.unsplash.com/photo-1416331108676-a22ccb276e35) no-repeat center; background-size: cover; height: 100%;}
@@ -59,8 +64,15 @@ h4 { font-size: 14px;}
 .carousel-indicators { bottom: 0px;}
 
 /* Stats */
-.stat-val { font-size: 45px; font-weight: 700; border: 1px solid #ff8000; width: 150px; text-align: center; height: 150px; border-radius: 75px; margin: auto; line-height: 150px;}
+.stat-val { font-size: 30px; font-weight: 700; border: 1px solid #ff8000; width: 100px; text-align: center; height: 100px; border-radius: 50px; margin: auto; line-height: 100px;}
 .stats p { font-size: 17px; font-weight: 700; text-transform: uppercase;}
+
+/* Login style */
+.sector-login h3 {margin: 0; padding-bottom: 20px; text-transform: none;}
+.login-form .input-group { margin-bottom: 10px;}
+
+/* Register */
+.register-form .input-group { margin-bottom: 10px;}
 
 /* About */
 .contact-sect { color: #FFFFFF;}
@@ -77,6 +89,21 @@ h4 { font-size: 14px;}
 .footer-links ul li a {color: #999999;}
 
 .credits { font-size: 11px; color: #999999; background: rgb(43, 50, 60);}
+
+select:not([multiple]) { line-height: inherit; -webkit-appearance: none; -moz-appearance: none; background-position: right 50%; background-repeat: no-repeat; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZFNDEwNjlGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDZFNDEwNkFGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NkU0MTA2N0Y3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NkU0MTA2OEY3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuGsgwQAAAA5SURBVHjaYvz//z8DOYCJgUxAf42MQIzTk0D/M+KzkRGPoQSdykiKJrBGpOhgJFYTWNEIiEeAAAMAzNENEOH+do8AAAAASUVORK5CYII=); padding: .5em; padding-right: 1.5em }
+
+::-webkit-input-placeholder {
+   color: #909090 !important;
+}
+:-moz-placeholder { /* Firefox 18- */
+    color: #909090 !important;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+    color: #909090 !important;
+}
+:-ms-input-placeholder {
+    color: #909090 !important;
+}
 
 /* RESPONSIVE CSS
 -------------------------------------------------- */

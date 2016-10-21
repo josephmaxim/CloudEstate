@@ -98,23 +98,6 @@ include('header.php');
     </div>
 </section>
 
-<section class="sector-blur">
-    <div class="sector-blur-overlay">
-        <div class="container contact-sect">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-center">
-                        <h2>Get in touch with us!</h2>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-center">
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Contact Us!</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <?php
 include('footer.php');
 ?>

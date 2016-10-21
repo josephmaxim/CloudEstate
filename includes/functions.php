@@ -4,73 +4,108 @@
 //  Members     : Joseph Dagunan, David Bond, Alex Waddell, Braydon Duprey
 //  File name   : function.php
 
-// include users table class
-include_once('users.class.php');
-
 // Main Login Function
-function UserLogin($user_id, $password){
+function userLogin($userID,$pass){
 
-    // Set new Users class
-    $user = new Users();
+    // Prepare the Query
+    $result = pg_prepare(db_connect(), "my_query","SELECT * FROM users WHERE user_id=$1 AND password=$2");
+    // Execute Query
+    $result = pg_execute(db_connect(), "my_query", array($userID,hashPassword($pass)));
 
-    // Check if user ID exist in the database
-    if($user->GetUser($user_id) == true){
+    // Store data in row variable
+    $row = pg_fetch_assoc($result);
 
-        // Check if password entered matches the ones on the database
-        if($password == $user->getPassword()){
+    // Checks if row exist
+    if($row){
 
-            // Update last access date
-            $user->UpdateAccessDate($user_id, CurrentDateTime());
+        // prepare data for sessions
+        $userData = array(
+            'userID' => $row['user_id'],
+            'password' => $row['password'],
+            'email_address' => $row['email_address'],
+            'user_type' => $row['user_type'],
+            'enrol_date' => $row['enrol_date'],
+            'last_access' => $row['last_access']
+        );
 
-            // Prep user data for sessions
-            $userData = array(
-                'user_id' => $user->getUserId(),
-                'password' => $user->getPassword(),
-                'email' => $user->getEmailAddress(),
-                'user_type' => $user->getUserType(),
-                'enrol_date' => $user->getEnroldate(),
-                'last_access' => $user->getLastAccess()
-            );
 
-            // Start sessions using prepared data
-            StartUserSession($userData);
-            return true;
-        }else{
-            return false;
-        }
+        //Set user sessions
+        setUserSessions($userData);
+
+        // Update last access
+        UpdateAccessDate($userData['userID']);
+
+        return true;
     }else{
         return false;
     }
 
 }
 
-// Set user sessions
-function StartUserSession($data){
+// function that checks input length
+function CheckInputLength($string, $min, $max){
+    $charCount = strlen($string);
+    if($charCount >= $min && $charCount <= $max){
+        return true;
+    }else{
+        return false;
+    }
+}
 
-    $_SESSION['UserData'] = array(
-        'user_id' => $data['user_id'],
+// register function
+function InsertUser($data){
+
+    // $data array key values
+    //
+    // 'user_id'
+    // 'email'
+    // 'accountType'
+    // 'password'
+
+    // encrypting password
+    $data['password'] = encryptPassword($data['password']);
+
+    // Prepare the Query
+    pg_prepare(db_connect(), "Insert_Users","INSERT INTO users VALUES($1, $4, $3, $2, CURRENT_DATE, CURRENT_DATE);");
+    // Execute Query
+    $result = pg_execute(db_connect(), "Insert_Users", $data);
+
+    if($result = true){
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+// set user sessions function
+function setUserSessions($data){
+    $_SESSION['userData'] = array(
+        'userID' => $data['userID'],
         'password' => $data['password'],
-        'email' => $data['email'],
+        'email_address' => $data['email_address'],
         'user_type' => $data['user_type'],
         'enrol_date' => $data['enrol_date'],
         'last_access' => $data['last_access']
     );
 }
 
-// Return Date and time
-function CurrentDateTime(){
-    date_default_timezone_set("America/Toronto");
-    $date = date("M j, Y  g:i a");
+//Update user access date
+function UpdateAccessDate($user_id){
+    // Prepare SQL
+    pg_prepare(db_connect(),'Update_access', "UPDATE users SET last_access = CURRENT_DATE WHERE user_id = $1;");
 
-    return $date;
+    // Execute SQL
+    pg_execute(db_connect(),'Update_access', array($user_id)) or die("Error while inserting.");
 }
 
-// Checks is user session exist
+// Check user sessions
 function SessionCheck(){
-    if(empty($_SESSION['UserData']['user_id'])){
-        return false;
-    }else{
+    if(isset($_SESSION['userData']['userID'])){
         return true;
+    }else{
+        return false;
     }
 }
 

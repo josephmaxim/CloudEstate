@@ -12,3 +12,15 @@ DEFINE('DBHOST', "localhost");
 DEFINE('DBNAME', "group15_db");
 DEFINE('DBUSER', "group15_admin");
 DEFINE('DBPASS', "YouTheMan69");
+
+// Account Type Identification
+DEFINE('ADMIN', "S");
+DEFINE('AGENT', "A");
+DEFINE('PENDING_AGENT', "P");
+DEFINE('CLIENT', "C");
+DEFINE('SUSPENDED_USER', "X");
+
+// Define contact method
+DEFINE('EMAIL', "e");
+DEFINE('PHONE', "p");
+DEFINE('POSTED_MAIL', "l");
