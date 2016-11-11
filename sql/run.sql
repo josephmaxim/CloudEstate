@@ -70,7 +70,7 @@ CREATE TABLE listings
   description VARCHAR(1000) NOT NULL,
   postal_code CHAR(6) NOT NULL,
   images SMALLINT DEFAULT 0,
-  city VARCHAR(50) NOT NULL,
+  city VARCHAR(75) NOT NULL,
 
   property_options INTEGER NOT NULL,
   bedrooms INTEGER,
@@ -88,8 +88,9 @@ CREATE TABLE listings
 INSERT INTO listings VALUES( DEFAULT, 'dagunanj', 'a', 500000.00, '27 King Street For Sale!', 'House for sale! contact Joseph Dagunan!', 'U7F9B3', 0, 'ajax', 0, 3, 3, CURRENT_DATE, 0, 3, 0, 2000, 4);
 
 -- Insert table listing_status properties
-INSERT INTO status VALUES('s', 'Sold');
-INSERT INTO status VALUES('a', 'Available');
+INSERT INTO status VALUES('o', 'Open');
+INSERT INTO status VALUES('p', 'Close');
+INSERT INTO status VALUES('l', 'Sold');
 
 -- Insert table property_options properties
 INSERT INTO property_options VALUES(0, 'Stainless Appliances');

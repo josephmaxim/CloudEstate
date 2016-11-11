@@ -180,6 +180,7 @@ if(isset($_POST['submit'])){
 
         if(insertListing($userData) == true){
             $success = true;
+            $stickySessions = '';
         }else{
             array_push($errors, "- There was an error while inserting your listing. please contact the administration!");
         }
@@ -208,6 +209,15 @@ if(isset($_POST['submit'])){
                                         echo "<span>$errors</span><br/>";
                                     }
                                     ?>
+                                </div>
+                                <?php
+                            }
+                            if($success == true){
+                                ?>
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                    <p>You have successfully created a listing.</p>
                                 </div>
                                 <?php
                             }

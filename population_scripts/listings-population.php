@@ -21,7 +21,7 @@ if(isset($_POST['populate'])){
 
     for($count = 0; $count <= 999; $count++){
         $randomAgent = $agents[rand(0,count($agents)-1)];
-        $listingStatus = $status[1];
+        $listingStatus = $status[0];
         $price = rand(200000,1000000);
         $province = array_keys($province_city)[rand(0,11)];
         $city = $province_city[$province][rand(0,count($province_city[$province])-1)];

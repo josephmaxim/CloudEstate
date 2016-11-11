@@ -114,7 +114,73 @@ function getAllCity(){
     asort($cityData);
     return $cityData;
 }
+ // function that gets agent listings
+function getAgentListings($userID){
+    $listings = array();
 
+    pg_prepare(db_connect(), 'getAgentListings', "SELECT * FROM listings WHERE user_id = $1");
+
+    $result = pg_execute(db_connect(), 'getAgentListings', array($userID));
+
+    if(pg_num_rows($result) > 0){
+        while ($row = pg_fetch_array($result)){
+            array_push($listings, $row);
+        }
+    }
+
+    return $listings;
+}
+
+//get listings based on city
+function getListingsOnCity($city){
+    $listings = array();
+    $city .= "%";
+
+    pg_prepare(db_connect(), 'getListingsOnCity', "SELECT * FROM listings WHERE city LIKE $1;");
+
+    $result = pg_execute(db_connect(), 'getListingsOnCity', array($city));
+
+    if(pg_num_rows($result) > 0){
+        while ($row = pg_fetch_array($result)){
+            array_push($listings, $row);
+        }
+    }
+
+    return $listings;
+}
+
+// function get all advanced search listing
+function getAllSearchedListings($searchData){
+    $listings = array();
+
+    pg_prepare(db_connect(), 'getAllSearchedListings', "SELECT * FROM listings WHERE status = $1 AND city = $2 AND property_options = $3 AND bedrooms = $4 AND bathrooms = $5 AND listing_type = $6 AND storey = $7 AND building_type = $8 ORDER BY listing_id DESC LIMIT 200");
+
+    $result = pg_execute(db_connect(), 'getAllSearchedListings', $searchData);
+
+    if(pg_num_rows($result) > 0){
+        while ($row = pg_fetch_array($result)){
+            array_push($listings, $row);
+        }
+    }
+
+    return $listings;
+}
+//
+function listing_preview($listing_id){
+    $listings = array();
+
+    pg_prepare(db_connect(), 'getAllSearchedListings', "SELECT * FROM listings WHERE listing_id = $1 LIMIT 10");
+
+    $result = pg_execute(db_connect(), 'getAllSearchedListings', array($listing_id));
+
+    if(pg_num_rows($result) > 0){
+        while ($row = pg_fetch_array($result)){
+            array_push($listings, $row);
+        }
+    }
+
+    return $listings;
+}
 // function that checks input length
 function CheckInputLength($string, $min, $max){
     $charCount = strlen($string);
@@ -169,6 +235,36 @@ function hashPassword($password){
     $saltedPassword = $password . CSPRING;
     $hashedPassword = hash("md5", $saltedPassword);
     return $hashedPassword;
+}
+
+
+
+/*
+ *  NOTE : we never used this two function. we did the sticky radio/select in a different way to work on what we already have.
+ *
+	this function should be passed a integer power of 2, and any decimal number,
+	it will return true (1) if the power of 2 is contain as part of the decimal argument
+*/
+function isBitSet($power, $decimal) {
+    if((pow(2,$power)) & ($decimal))
+        return 1;
+    else
+        return 0;
+}
+
+/*
+	this function can be passed an array of numbers (like those submitted as
+	part of a named[] check box array in the $_POST array).
+*/
+function sumCheckBox($array)
+{
+    $num_checks = count($array);
+    $sum = 0;
+    for ($i = 0; $i < $num_checks; $i++)
+    {
+        $sum += $array[$i];
+    }
+    return $sum;
 }
 
 ?>

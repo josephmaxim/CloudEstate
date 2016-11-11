@@ -27,3 +27,11 @@ DEFINE('SUSPENDED_USER', "X");
 DEFINE('EMAIL', "e");
 DEFINE('PHONE', "p");
 DEFINE('POSTED_MAIL', "l");
+
+// Define listing status
+DEFINE('OPEN', "o");
+DEFINE('CLOSED', "p");
+DEFINE('SOLD', "l");
+
+//Max listings results for listing preview
+DEFINE('MAX_RESULTS', 10);

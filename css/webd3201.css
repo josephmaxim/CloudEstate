@@ -6,7 +6,7 @@ Members: Joseph Dagunan, David Bond, Alex Waddell
 
 /* HTML 5 tag styles */
 html, body { height: 100%;}
-body { font-family: 'Open Sans', sans-serif; font-weight: 300;}
+body { font-family: 'Open Sans', sans-serif; font-weight: 300; padding-top: 51px;}
 h1,h2,h3,h4,h5,h6{ color: #222222; font-weight: 300;}
 h1 { font-size: 26px;}
 h2 { font-size: 22px;}
