@@ -1,6 +1,6 @@
 <?php
 
-//  Group #     :
+//  Group #     : 15
 //  Members     : Joseph Dagunan, David Bond, Alex Waddell, Braydon Duprey
 //  File name   : db.php
 
@@ -14,63 +14,95 @@ function db_connect(){
 
 // Check if user id exist in the database
 function is_user_id($userID){
-    // Prepare the Query
-    $result = pg_prepare(db_connect(), "Check_User_ID","SELECT user_id FROM users WHERE user_id=$1");
+
+    pg_prepare(db_connect(), "check_userID","SELECT user_id FROM users WHERE user_id=$1");
     // Execute Query
-    $result = pg_execute(db_connect(), "Check_User_ID", array($userID));
+    $result = pg_execute(db_connect(), "check_userID", array($userID));
 
-    // Store data in row variable
-    $row = pg_fetch_assoc($result);
-
-    if($row){
+    if(pg_num_rows($result) > 0){
         return true;
     }else{
         return false;
     }
 }
 
-function build_simple_dropdown($value){
+function build_simple_dropdown($name,$arrayData){
 
-    // pull from databse
-
+    global $stickySessions;
     echo '<div class="form-group">';
-    echo '<select class="form-control mySelect"  name="type" id="type">';
-    echo '<option value="0" disabled selected>Select an account type(Client/Agent)</option>';
-    foreach ($value as $val){
-        echo '<option value="'. $val .'">';
+    echo '<label for="'.$name.'">'.$name.'</label><select class="form-control"  name="'.$name.'" id="type">';
+    echo '<option value="0" disabled selected>Select '.$name.'</option>';
 
-        if($val == CLIENT){
-            echo 'I am a client';
-        }elseif ($val == AGENT){
-            echo 'I am an agent';
+    foreach ($arrayData as $val){
+        echo '<option value="'. $val .'"';
+        if(isset($stickySessions[$name])){
+            if($stickySessions[$name] == $val){
+                echo ' selected="selected"';
+            }
         }
 
-        echo '</option>';
+        echo '>'.$val.'</option>';
+    }
+
+    echo '</select></div>';
+}
+
+function build_dropdown($tableName){
+    global $stickySessions;
+    pg_prepare(db_connect(), "$tableName","SELECT * FROM $tableName;");
+    // Execute Query
+    $result = pg_execute(db_connect(), "$tableName", array());
+
+    echo '<div class="form-group">';
+    echo '<label for="'.$tableName.'">'.$tableName.':</label>';
+    echo '<select class="form-control mySelect"  name="'.$tableName.'" id="'.$tableName.'">';
+    echo '<option value="" disabled selected>Select a '.$tableName.'</option>';
+    while($row = pg_fetch_array($result)){
+        echo '<option value="'. $row[0] .'"';
+
+        if(isset($stickySessions[$tableName])){
+            if($stickySessions[$tableName] == $row[0]){
+                echo ' selected="selected"';
+            }
+        }
+
+
+        echo '>'.$row['property'].'</option>';
+
     }
     echo '</select></div>';
 }
 
-function build_dropdown($value){
+function build_radio($tableName){
+
+    global $stickySessions;
+
+    pg_prepare(db_connect(), "$tableName","SELECT * FROM $tableName;");
+    // Execute Query
+    $result = pg_execute(db_connect(), "$tableName", array());
+
     echo '<div class="form-group">';
-    echo '<select class="form-control mySelect"  name="type" id="type">';
-    foreach ($value as $val){
-        echo '<option value="'. $val .'">';
+    echo '<label for="'.$tableName.'">'.$tableName.':</label>';
 
-        if($val == CLIENT){
-            echo 'I am a client';
-        }elseif ($val == AGENT){
-            echo 'I am an agent';
+    while($row = pg_fetch_array($result)){
+        echo '<div class="radio"><label><input type="radio" name="'.$tableName.'" value="'.$row[0].'"';
+        if(isset($stickySessions[$tableName])){
+            if($stickySessions[$tableName] == $row[0]){
+                echo ' checked="checked" ';
+            }
         }
-
-        echo '</option>';
+        echo '>'.$row['property'].'</label></div>';
     }
-    echo '</select></div>';
+    echo '</div>';
 }
 
-function build_radio(){
+function get_property($tableName,$property){
+    $query_name = rand(0,9999999999);
+    pg_prepare(db_connect(), $query_name,"SELECT property FROM $tableName WHERE property_id=$1");
+    // Execute Query
+    $result = pg_execute(db_connect(), $query_name, array($property));
 
-}
+    $row = pg_fetch_assoc($result);
 
-function get_property(){
-
+    return $row['property'];
 }

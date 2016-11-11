@@ -1,16 +1,17 @@
 <?php
 
-//  Group #     :
-//  Members     : Joseph Dagunan, David Bond, Alex Waddell, Braydon Duprey
+//  Group #     : 15
+//  Members     : Joseph Dagunan, David Bond, Alex Waddell
 //  File name   : function.php
 
-// Main Login Function
-function userLogin($userID,$pass){
+require_once('city_provinces.php');
+
+function userLogin($userID, $password){
 
     // Prepare the Query
-    $result = pg_prepare(db_connect(), "my_query","SELECT * FROM users WHERE user_id=$1 AND password=$2");
+    pg_prepare(db_connect(), "login_query","SELECT * FROM users WHERE user_id=$1 AND password=$2");
     // Execute Query
-    $result = pg_execute(db_connect(), "my_query", array($userID,hashPassword($pass)));
+    $result = pg_execute(db_connect(), "login_query", array($userID,hashPassword($password)));
 
     // Store data in row variable
     $row = pg_fetch_assoc($result);
@@ -30,7 +31,7 @@ function userLogin($userID,$pass){
 
 
         //Set user sessions
-        setUserSessions($userData);
+        setUserSession($userData);
 
         // Update last access
         UpdateAccessDate($userData['userID']);
@@ -42,22 +43,12 @@ function userLogin($userID,$pass){
 
 }
 
-// function that checks input length
-function CheckInputLength($string, $min, $max){
-    $charCount = strlen($string);
-    if($charCount >= $min && $charCount <= $max){
-        return true;
-    }else{
-        return false;
-    }
-}
-
 // register function
 function InsertUser($data){
 
     // $data array key values
     //
-    // 'user_id'
+    // 'userID'
     // 'email'
     // 'accountType'
     // 'password'
@@ -70,143 +61,64 @@ function InsertUser($data){
     // Execute Query
     $result = pg_execute(db_connect(), "Insert_Users", $data);
 
-    if($result = true){
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-// get user profile
-function getUserProfile($userID){
-
     // Prepare the Query
-    $result = pg_prepare(db_connect(), "get_profile","SELECT 
-        a.*,
-        b.password,
-        b.user_type,
-        b.email_address,
-        b.enrol_date,
-        b.last_access
-    FROM users AS b
-    INNER JOIN people AS a
-    ON b.user_id=a.user_id
-    WHERE b.user_id=$1;");
-
+    pg_prepare(db_connect(), "Insert_People","INSERT INTO people VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)");
     // Execute Query
-    $result = pg_execute(db_connect(), "get_profile", array($userID));
+    pg_execute(db_connect(), "Insert_People", array($data['userID'],'','','','','','','','','','','',EMAIL));
 
-    // Store data in row variable
-    $row = pg_fetch_assoc($result);
-
-    if($row){
-
-        // prepare data for sessions
-        $userData = array(
-            'userID' => $row['user_id'],
-            'password' => $row['password'],
-            'email_address' => $row['email_address'],
-            'user_type' => $row['user_type'],
-            'enrol_date' => $row['enrol_date'],
-            'last_access' => $row['last_access'],
-            'salutation' => $row['salutation'],
-            'first_name' => $row['first_name'],
-            'last_name' => $row['last_name'],
-            'street_address_1' => $row['street_address_1'],
-            'street_address_2' => $row['street_address_2'],
-            'city' => $row['city'],
-            'province' => $row['province'],
-            'postal_code' => $row['postal_code'],
-            'primary_phone_number' => $row['primary_phone_number'],
-            'secondary_phone_number' => $row['secondary_phone_number'],
-            'fax_number' => $row['fax_number'],
-            'preferred_contact_method' => $row['preferred_contact_method']
-        );
-        return $userData;
-    }
-}
-
-// insert profile
-function editUserProfile($userID, $inputData){
-    $result1 =pg_prepare(db_connect(),'update_users', "UPDATE users SET email_address = $1, user_type = $2 WHERE user_id = '".$userID."';");
-
-    // Execute SQL
-    $result1 = pg_execute(db_connect(),'update_users', array($inputData['email_address'], $inputData['user_type'])) or die("Error while inserting.");
-
-
-    $result2 = pg_prepare(db_connect(),'Update_people', "UPDATE people
-        SET 
-        salutation = $1,
-        first_name = $2,
-        last_name = $3,
-        street_address_1 = $4,
-        street_address_2 = $5,
-        city = $6,
-        province = $7,
-        postal_code = $8,
-        primary_phone_number = $9,
-        secondary_phone_number = $10,
-        fax_number = $11,
-        preferred_contact_method = $12
-        WHERE user_id = '".$userID."';");
-
-    // Execute SQL
-    $result2 = pg_execute(db_connect(),'Update_people', array(
-        $inputData['salutation'],
-        $inputData['first_name'],
-        $inputData['last_name'],
-        $inputData['street_address_1'],
-        $inputData['street_address_2'],
-        $inputData['city'],
-        $inputData['province'],
-        $inputData['postal_code'],
-        $inputData['primary_phone_number'],
-        $inputData['secondary_phone_number'],
-        $inputData['fax_number'],
-        $inputData['preferred_contact_method'])) or die("Error while inserting.");
-
-    if($result1==true && $result2==true){
+    if($result == true){
         return true;
     }else{
         return false;
     }
 }
 
+// Insert listing
+function insertListing($listingData){
 
-// set user sessions function
-function setUserSessions($data){
-    $_SESSION['userData'] = array(
-        'userID' => $data['userID'],
-        'password' => $data['password'],
-        'email_address' => $data['email_address'],
-        'user_type' => $data['user_type'],
-        'enrol_date' => $data['enrol_date'],
-        'last_access' => $data['last_access']
-    );
-    setCookieSession($data);
+    pg_prepare(db_connect(), "Insert_Listing","INSERT INTO listings VALUES( DEFAULT, '".$_SESSION['userData']['userID']."', $1, $2, $3, $4, $5, 0, $6, $7, $8, $9, CURRENT_DATE, $10, $11, $12, 0, 0);");
+    // Execute Query
+    $result = pg_execute(db_connect(), "Insert_Listing", $listingData);
+
+    if($result == true){
+        return true;
+    }else{
+        return false;
+    }
 }
+// Update password
+function changePassword($pass){
+    $pass = encryptPassword($pass);
+    pg_prepare(db_connect(),'Update_access', "UPDATE users SET password = $1 WHERE user_id = '".$_SESSION['userData']['userID']."';");
 
-// Set cookie session
-function setCookieSession($data){
-    if(!isset($_COOKIE["userLogin"])) {
-        setcookie('userLogin', $data, time() + TIMEOUT, "/");
+    // Execute SQL
+    $result = pg_execute(db_connect(),'Update_access', array($pass)) or die("Error while inserting.");
+
+    if($result == true){
+        $_SESSION['userData']['password'] = $pass;
+        return true;
+    }else{
+        return false;
     }
 }
 
-//Update user access date
-function UpdateAccessDate($user_id){
-    // Prepare SQL
-    pg_prepare(db_connect(),'Update_access', "UPDATE users SET last_access = CURRENT_DATE WHERE user_id = $1;");
-
-    // Execute SQL
-    pg_execute(db_connect(),'Update_access', array($user_id)) or die("Error while inserting.");
+// get city
+function getAllCity(){
+    global $province_city;
+    $cityData = array();
+    foreach($province_city as $province){
+        foreach ($province as $city){
+            array_push($cityData,$city);
+        }
+    }
+    asort($cityData);
+    return $cityData;
 }
 
-// Check user sessions
-function SessionCheck(){
-    if(isset($_SESSION['userData']['userID'])){
+// function that checks input length
+function CheckInputLength($string, $min, $max){
+    $charCount = strlen($string);
+    if($charCount >= $min && $charCount <= $max){
         return true;
     }else{
         return false;
@@ -218,15 +130,32 @@ function sanitizeInput($data) {
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
+    $data = htmlentities($data);
     return $data;
 }
 
-// Function that renders the Copyrights
-function display_copyright(){
-    $year = date("Y");
-    echo "<span>&copy; $year Cloud Estate. All Rights Reserved.</span>";
+// Start user session
+function setUserSession($userData){
+    $_SESSION["userData"] = $userData;
 }
 
+// Check user sessions
+function SessionCheck(){
+    if(isset($_SESSION['userData']['userID'])){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+//Update user access date
+function UpdateAccessDate($user_id){
+    // Prepare SQL
+    pg_prepare(db_connect(),'Update_access', "UPDATE users SET last_access = CURRENT_DATE WHERE user_id = $1;");
+
+    // Execute SQL
+    pg_execute(db_connect(),'Update_access', array($user_id)) or die("Error while inserting.");
+}
 
 // Encrypt Password
 function encryptPassword($password){
@@ -242,31 +171,4 @@ function hashPassword($password){
     return $hashedPassword;
 }
 
-function display_phone_number($number){
-
-    if(  preg_match( '/^(\d{3})(\d{3})(\d{4})$/', $number,  $matches ) )
-    {
-        $result = '(' . $matches[1] . ') ' .$matches[2] . '-' . $matches[3];
-        return $result;
-    }
-}
-
-//function by Roshan Bhattara(http://roshanbh.com.np)
-////function to validate postal code of canada
-function is_valid_postal_code($zip_code)
-{
-    if(preg_match("/^([a-ceghj-npr-tv-z]){1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}$/i",$zip_code))
-        return true;
-    else
-        return false;
-}
-function createPostalCode()
-{
-    // Format: X1X1X1
-    $alphabet = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
-    //First Letter       // First Digit  //Second Letter
-    $postal_code = $alphabet[rand(0, 25)] . rand(0, 9) . $alphabet[rand(0,25)] . rand(0, 9) . $alphabet[rand(0,25)] . rand(0,9);
-
-    return $postal_code;
-
-}
+?>

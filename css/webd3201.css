@@ -1,134 +1,35 @@
 /*
-
-Group #     :
-Members     : Joseph Dagunan, David Bond
-File name   : webd3201.css
-
+By: Group 15
+Members: Joseph Dagunan, David Bond, Alex Waddell
 */
-
-
 @import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,700';
 
-html, body {height: 100%;}
-html { font-family: 'Open Sans', sans-serif; font-weight: 300;}
-body { background: #fcfcfc; font-size: 13px!important;}
-p { padding: 0; margin: 0;}
-
-h1,h2,h3,h4,h5,h6{ color: #222222; font-weight: 300; text-transform: uppercase;}
+/* HTML 5 tag styles */
+html, body { height: 100%;}
+body { font-family: 'Open Sans', sans-serif; font-weight: 300;}
+h1,h2,h3,h4,h5,h6{ color: #222222; font-weight: 300;}
 h1 { font-size: 26px;}
 h2 { font-size: 22px;}
 h3 { font-size: 18px;}
 h4 { font-size: 14px;}
 
-input, textarea, select , .input-group-addon{ border-radius: 0 !important; -webkit-appearance: none;}
-input , select , textarea, .input-group-addon { color: #909090; border: 1px solid #c0c0c0; font-size: 10px; font-weight: 300; -webkit-box-shadow: none !important; -moz-box-shadow: none !important; box-shadow: none !important; outline: none !important;}
-
-
-.btn { padding: 8px 24px; background: #ff8000; border: none; color: #f5f5f5; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: 300; border-radius: 2px;}
-.btn:hover { background: #FF9D39}
-.btn-lg { font-size: 90%; padding: 10px 26px;}
-.btn-sm { font-size: 70%; padding: 6px 22px;}
-.btn-xs { font-size: 60%; padding: 4px 20px;}
-
 /* Navigation */
-.navbar { background: rgba(255,255,255, 1.0); border: 0; color: #000000; border-bottom:1px solid #f1f1f1;}
-.navbar-brand, .navbar-nav a { color: #000000!important; text-transform: uppercase;}
-.navbar-nav li { padding: 0px 20px 0px 20px;}
-.navbar-nav li a {letter-spacing: 2px; text-indent: 2px; font-size: 10px; padding: 15px 0px 15px 0px;}
-.navbar-nav li a:hover { transition: color 200ms ease-in-out; color: #ff8000!important;}
-.navbar-brand { font-size: 24px; letter-spacing: 4px; font-weight: 700;}
-.navbar-brand img { width: 140px;}
-.navbar-toggle { border-radius: 0; border: 0;}
-.navbar-toggle:hover, .navbar-toggle:active, .navbar-toggle:visited, .navbar-toggle:focus {background: none !important;}
-.navbar-toggle > span { background: #000000 !important;}
-.navbar-collapse {}
-
-/* Sectors */
-.sector-slider { overflow: hidden;}
-.sector-white { padding: 100px 0px;}
-.sector-blur { position: relative; overflow: auto; background: url(https://hd.unsplash.com/43/L6sQn4GyQdSBW7pLgEz7_DSC_0013.JPG) center no-repeat; background-size: cover;}
-.sector-blur-overlay { padding: 100px 0px; background: url(../img/blur.png) repeat;}
-.sector-login, .sector-signup { padding: 100px 0px;}
-
-/* Slides */
-.first-slide {background: url(https://hd.unsplash.com/photo-1416331108676-a22ccb276e35) no-repeat center; background-size: cover; height: 100%;}
-.second-slide {background: url(https://hd.unsplash.com/photo-1471623432079-b009d30b6729) no-repeat center; background-size: cover; height: 100%;}
-.third-slide {background: url(https://hd.unsplash.com/photo-1446846365537-255ea07833ec) no-repeat center; background-size: cover; height: 100%;}
-
-.carousel { height: 600px;}
-.slide-dimmer { background: rgba(0,0,0,0.5); position: absolute; top: 0; bottom: 0; width: 100%; z-index: 8;}
-.carousel-caption { z-index: 10; top: 40%;}
-.carousel-caption h2{ color: #FFFFFF; font-weight: 700; font-size: 40px; text-transform: uppercase; letter-spacing: 2px;}
-.carousel-caption p { font-size: 16px !important;}
-.carousel .item { height: 600px; background-color: #777; }
-.carousel-indicators { bottom: 0px;}
-
-/* Stats */
-.stat-val { font-size: 30px; font-weight: 700; border: 1px solid #ff8000; width: 100px; text-align: center; height: 100px; border-radius: 50px; margin: auto; line-height: 100px;}
-.stats p { font-size: 17px; font-weight: 700; text-transform: uppercase;}
-
-/* Login style */
-.sector-login h3 {margin: 0; padding-bottom: 20px; text-transform: none;}
-.login-form .input-group { margin-bottom: 10px;}
-
-/* Register */
-.register-form .input-group { margin-bottom: 10px;}
-
-/* About */
-.contact-sect { color: #FFFFFF;}
-.contact-sect h2 { color: #ffffff; font-weight: 400; text-transform: none; font-size: 30px; margin: 0;}
-
-/* footer */
-.footer { background: #323a45; color: #cccccc;}
-.footer-links { padding: 20px 0px;}
-.credits {min-height: 50px; line-height: 50px;}
-
-.footer-links > div > h4 { text-transform: uppercase; font-size: 12px; color: #ffffff; font-weight: 700; letter-spacing: 1px;}
-.footer-links ul {padding: 0;}
-.footer-links ul li { list-style: none; font-size: 12px;}
-.footer-links ul li a {color: #999999;}
-
-.credits { font-size: 11px; color: #999999; background: rgb(43, 50, 60);}
-
-select:not([multiple]) { line-height: inherit; -webkit-appearance: none; -moz-appearance: none; background-position: right 50%; background-repeat: no-repeat; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZFNDEwNjlGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDZFNDEwNkFGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NkU0MTA2N0Y3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NkU0MTA2OEY3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuGsgwQAAAA5SURBVHjaYvz//z8DOYCJgUxAf42MQIzTk0D/M+KzkRGPoQSdykiKJrBGpOhgJFYTWNEIiEeAAAMAzNENEOH+do8AAAAASUVORK5CYII=); padding: .5em; padding-right: 1.5em }
-
-::-webkit-input-placeholder {
-   color: #909090 !important;
-}
-:-moz-placeholder { /* Firefox 18- */
-    color: #909090 !important;
-}
-::-moz-placeholder {  /* Firefox 19+ */
-    color: #909090 !important;
-}
-:-ms-input-placeholder {
-    color: #909090 !important;
-}
-
-/* RESPONSIVE CSS
--------------------------------------------------- */
-@media(max-width:767px){
-
-    .carousel-caption h2{ color: #FFFFFF; font-weight: 700; font-size: 20px; text-transform: uppercase; letter-spacing: 2px;}
-    .carousel-caption p { font-size: 12px!important;}
-    .carousel {
-        height: 400px;
-    }
-    .carousel .item {
-        height: 400px;
-        background-color: #777;
-    }
-    .carousel-caption {
-        top: 30%;
-    }
-}
-@media (min-width: 768px) and (max-width: 991px) {
+.navbar-brand img { width: 150px;}
 
 
-}
-@media (min-width: 992px) and (max-width: 1199px) {
 
-}
-@media (min-width: 1200px) {
+/* Content */
+.content { overflow: auto; padding-top: 61px;}
 
-}
+
+
+
+/* Footer Style */
+footer {overflow: auto; width: 100%; background: #323a45; color: #ffffff; padding: 20px 0px 0px 0px;}
+footer .footer-link-heading { font-weight: 700; text-transform: uppercase; font-size: 14px;}
+footer ul {margin: 0; padding: 0; list-style: none; font-size: 12px;}
+footer ul li a { color: #909090}
+footer ul li a:hover { color: #ffffff; text-decoration: none;}
+footer .links { padding-bottom: 10px;}
+footer .credits { font-size: 10px; background: rgb(43, 50, 60); min-height: 50px; line-height: 50px;}
+footer .credits p { padding: 0; margin: 0;}

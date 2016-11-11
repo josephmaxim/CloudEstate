@@ -1,48 +1,34 @@
 <?php
-
 //  Group #     : 15
-//  Members     : Joseph Dagunan, David Bond, Alex Waddell, Braydon Duprey
+//  Members     : Joseph Dagunan, David Bond, Alex Waddell
 //  File name   : welcome.php
 
+// Page title
 $title = "Cloud Estate | Welcome";
 
-include('header.php');
+// Include header
+include_once('header.php');
 
-// Check is there is no existing session
-if(SessionCheck() == false){
+// Check if there's an existing user session
+if(SessionCheck() == false) {
     header("Location: index.php");
 }
-
 ?>
 
-    <section class="sector-white">
+    <div class="content">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <div  class="alert alert-info animated bounceIn" role="alert">
-                        <h4 class="text-center">User Info:</h4>
-                        <br/>
-                        <ul>
-                            <?php
-                            $userProfile = getUserProfile($_SESSION['userData']['userID']);
-
-                            // Display User info (Not final, just to show that it works)
-                            foreach ($userProfile as $key => $value){
-                                echo "<li><strong>". $key . " :</strong> <i>" . $value ."</i></li>";
-                            }
-                            ?>
-                        </ul>
-                        <p>Formatted Primary Phone #: <?php echo display_phone_number($userProfile['primary_phone_number']);?></p>
-                    </div>
-                    <div class="text-center">
-                        <a href="edit_profile.php">Click here to edit your profile!</a>
-                    </div>
-                </div>
-            </div>
+            <h1 class="text-center">Welcome! - User profile</h1>
+            <p>Welcome <strong><?php echo $_SESSION['userData']['userID']?></strong>, the last time you accessed the site was on <span class="text-success"><?php echo $_SESSION['userData']['last_access']?></span></p>
+            <?php
+            // Display User info (Not final, just to show that it works)
+            foreach ($_SESSION['userData'] as $key => $value){
+                echo "<li><strong>". $key . " :</strong> <i>" . $value ."</i></li>";
+            }
+            ?>
         </div>
-    </section>
-
+    </div>
 
 <?php
-include('footer.php');
+// Include footer
+include_once('footer.php');
 ?>

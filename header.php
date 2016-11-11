@@ -1,62 +1,73 @@
 <?php
-
 //  Group #     : 15
-//  Members     : Joseph Dagunan, David Bond, Alex Waddell, Braydon Duprey
+//  Members     : Joseph Dagunan, David Bond, Alex Waddell
 //  File name   : header.php
-
 
 // Include Files
 require_once('includes/constants.php');
 require_once('includes/db.php');            // Note: We had to require db.php first before functions because we are using
 require_once('includes/functions.php');     //       the connect function in functions.php.
 
-// Start Sessions
+// start session
 session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title><?php echo $title;?></title>
-    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta http-equiv="cache-control" content="max-age=0" />
-    <meta http-equiv="cache-control" content="no-cache" />
-    <meta http-equiv="expires" content="0" />
-    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
-    <meta http-equiv="pragma" content="no-cache" />
-    <link rel="stylesheet" href="css/bootstrap.css" type="text/css"/>
-    <link rel="stylesheet" href="css/font-awesome.css" type="text/css"/>
-    <link rel="stylesheet" href="css/animate.css" type="text/css"/>
-    <link rel="stylesheet" href="css/webd3201.css" type="text/css"/>
+    <title><?php echo $title;?></title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/webd3201.css?v=<?php echo time(); ?>" rel="stylesheet">
+
 </head>
 <body>
 
-<!-- Navigation -->
-
+<!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
-                <i class="fa fa-caret-down fa-lg" aria-hidden="true"></i>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">
-                <img src="img/logo.png" alt="Cloud Estate">
-            </a>
+            <a class="navbar-brand" href="index.php"><img src="img/logo.png" alt="Cloud Estate"></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="index.php">Home</a></li>
-                <li><a href="listing-search.php">Search Listing</a></li>
+                <li><a href="listing-search.php">Search</a></li>
                 <?php
-                if(SessionCheck() == false){
-                    echo '<li><a href="login.php">Login</a></li><li><a href="register.php">Register</a></li>';
-                }else{
-                    echo '<li><a href="welcome.php">Account</a></li><li><a href="action.php?act=logout">Logout</a></li>';
-                }
+                    if(isset($_SESSION['userData']['userID'])){
+
+                        if($_SESSION['userData']['user_type'] == ADMIN){
+                            echo '<li><a href="admin.php">Admin</a></li>';
+                        }elseif($_SESSION['userData']['user_type'] == AGENT){
+                            echo '<li><a href="dashboard.php">Dashboard</a></li>';
+                        }
+                        ?>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="welcome.php">Profile</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Edit Profile</a></li>
+                                <li><a href="user-password.php">Change Password</a></li>
+                                <li><a href="action.php?act=logout"><span class="text-danger">Logout</span></a></li>
+                            </ul>
+                        </li>
+                        <?php
+                    }else{
+                        ?>
+                        <li><a href="login.php">Login</a></li>
+                        <li><a href="register.php">Register</a></li>
+                        <?php
+                    }
                 ?>
             </ul>
-        </div>
+        </div><!--/.nav-collapse -->
     </div>
 </nav>

@@ -1,5 +1,5 @@
 --  Group #     : 15
---  Members     : Joseph Dagunan, David Bond, Alex Waddell, Braydon Duprey
+--  Members     : Joseph Dagunan, David Bond, Alex Waddell
 --  File name   : users.sql
 
 DROP TABLE IF EXISTS users;

@@ -1,7 +1,7 @@
 <?php
 
 //  Group #     : 15
-//  Members     : Joseph Dagunan, David Bond, Alex Waddell, Braydon Duprey
+//  Members     : Joseph Dagunan, David Bond, Alex Waddell
 //  File name   : constants.php
 
 // Random Salt

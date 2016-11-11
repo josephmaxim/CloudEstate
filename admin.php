@@ -1,14 +1,14 @@
 <?php
-
 //  Group #     : 15
-//  Members     : Joseph Dagunan, David Bond, Alex Waddell, Braydon Duprey
+//  Members     : Joseph Dagunan, David Bond, Alex Waddell
 //  File name   : admin.php
 
-$title = "Cloud Estate | AdminPanel";
+// Page title
+$title = "Cloud Estate | Home";
 
-include('header.php');
+// Include header
+include_once('header.php');
 
-// Check if there's an existing user session
 if(SessionCheck() == true)
 {
     // Check user account type
@@ -20,22 +20,16 @@ else
 {
     header("Location: index.php");
 }
-
 ?>
 
-    <section class="sector-white">
+    <div class="content">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-lg-offset-3">
-                    <div class="alert alert-success animated bounceIn" role="alert">
-                        <h2>Welcome admin <?php echo $_SESSION['userData']['userID']?></h2>
-                        <p>Note: Admin page is still under development!</p>
-                    </div>
-                </div>
-            </div>
+            <h1 class="text-center">Admin Page!</h1>
+            <p>Welcome administrator <strong><?php echo $_SESSION['userData']['userID']?></strong>, the last time you accessed the site was on <span class="text-success"><?php echo $_SESSION['userData']['last_access']?></span></p>
         </div>
-    </section>
+    </div>
 
 <?php
-include('footer.php');
+// Include footer
+include_once('footer.php');
 ?>

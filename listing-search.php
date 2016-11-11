@@ -1,23 +1,22 @@
 <?php
-
 //  Group #     : 15
-//  Members     : Joseph Dagunan, David Bond, Alex Waddell, Braydon Duprey
+//  Members     : Joseph Dagunan, David Bond, Alex Waddell
 //  File name   : listing-search.php
 
+// Page title
 $title = "Cloud Estate | Search";
 
-include('header.php');
-
+// Include header
+include_once('header.php');
 ?>
 
-<div class="container">
-    <br />
-    <br />
-    <h1 class="text-center">Search</h1>
-    <br />
-    <br />
-</div>
+    <div class="content">
+        <div class="container">
+                <h1 class="text-center">Search listings</h1>
+        </div>
+    </div>
 
 <?php
-include('footer.php');
+// Include footer
+include_once('footer.php');
 ?>
