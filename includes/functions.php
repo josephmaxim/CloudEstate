@@ -72,6 +72,41 @@ function InsertUser($data){
         return false;
     }
 }
+// Reset password
+function resetPassword($userID, $email){
+    // Prepare the Query
+    pg_prepare(db_connect(), "Insert_Users","SELECT users.user_id, users.email_address FROM users WHERE user_id=$1 AND email_address=$2");
+    // Execute Query
+    $result = pg_execute(db_connect(), "Insert_Users", array($userID, $email));
+
+    if(pg_num_rows($result) != 0){
+        $newStringPassword = generateRandomString();
+        $newEncryptedPassword = encryptPassword($newStringPassword);
+
+        $result = pg_query(db_connect(),"UPDATE users SET password = '$newEncryptedPassword' WHERE user_id = '$userID';");
+
+        $to = $email;
+        $subject = "Account Password Reset";
+        $txt = '<table width="600" cellpadding="0" cellspacing="0" align="center"><tr><td width="600"><h1>Cloud Estate Reset</h1><p>You can now access your cloud estate account using <strong>'.$newStringPassword.'</strong> as your new password.</p></td></tr></table>';
+
+        mail($to,$subject,$txt);
+
+        return true;
+    }else{
+        return false;
+    }
+}
+
+// Generate 10 random char
+function generateRandomString() {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < 8; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
 
 // Insert listing
 function insertListing($listingData){
@@ -102,6 +137,99 @@ function changePassword($pass){
     }
 }
 
+// Get all user info
+function GetUserProfileInfo($userID){
+
+    $sql = "SELECT 
+                p.*, 
+                u.password,
+                u.email_address,
+                u.user_type,
+                u.enrol_date,
+                u.last_access
+            FROM people AS p
+            INNER JOIN users AS u
+            ON p.user_id=u.user_id
+            WHERE p.user_id='$userID'; ";
+    $result = pg_query(db_connect(), $sql);
+
+    $row = pg_fetch_assoc($result);
+
+    return $row;
+}
+// edit user profile
+function editUserProfile($userID, $inputData){
+    pg_prepare(db_connect(),'update_users', "UPDATE users SET email_address = $1, user_type = $2 WHERE user_id = '".$userID."';");
+
+    // Execute SQL
+    $result1 = pg_execute(db_connect(),'update_users', array($inputData['email_address'], $inputData['user_type'])) or die("Error while inserting.");
+
+
+    pg_prepare(db_connect(),'Update_people', "UPDATE people
+        SET 
+        salutation = $1,
+        first_name = $2,
+        last_name = $3,
+        street_address_1 = $4,
+        street_address_2 = $5,
+        city = $6,
+        province = $7,
+        postal_code = $8,
+        primary_phone_number = $9,
+        secondary_phone_number = $10,
+        fax_number = $11,
+        preferred_contact_method = $12
+        WHERE user_id = '".$userID."';");
+
+    // Execute SQL
+    $result2 = pg_execute(db_connect(),'Update_people', array(
+        $inputData['salutation'],
+        $inputData['first_name'],
+        $inputData['last_name'],
+        $inputData['street_address_1'],
+        $inputData['street_address_2'],
+        $inputData['city'],
+        $inputData['province'],
+        $inputData['postal_code'],
+        $inputData['primary_phone_number'],
+        $inputData['secondary_phone_number'],
+        $inputData['fax_number'],
+        $inputData['preferred_contact_method'])) or die("Error while inserting.");
+
+    if($result1==true && $result2==true){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+// Update listing
+function UpdateListing($listing_id,$data){
+    // Prepare SQL
+    pg_prepare(db_connect(),'Update_listing', "
+        UPDATE 
+            listings 
+        SET 
+            headline = $1,
+            description = $2,
+            price = $3,
+            status = $4,
+            postal_code = $5,
+            city = $6,
+            property_options = $7,
+            bedrooms = $8,
+            bathrooms = $9,
+            listing_type = $10,
+            storey = $11,
+            building_type = $12
+        WHERE 
+            listing_id = $listing_id;");
+
+    // Execute SQL
+    $result = pg_execute(db_connect(),'Update_listing', $data) or die("Error while inserting.");
+
+    return $result;
+}
 // get city
 function getAllCity(){
     global $province_city;
@@ -114,11 +242,49 @@ function getAllCity(){
     asort($cityData);
     return $cityData;
 }
+
+// set Main Image
+function setMainImage($listing_id,$value){
+    pg_prepare(db_connect(),'Update_listing', "
+        UPDATE 
+            listings 
+        SET 
+           images = $1
+        WHERE 
+            listing_id = $listing_id;");
+
+    // Execute SQL
+    $result = pg_execute(db_connect(),'Update_listing', array($value)) or die("Error while inserting.");
+
+    return $result;
+}
+
+// get province
+function getAllProvince(){
+    global $province_city;
+    $provinceData = array();
+    foreach($province_city as $province => $city){
+            array_push($provinceData,$province);
+    }
+    asort($provinceData);
+    return $provinceData;
+}
+
  // function that gets agent listings
-function getAgentListings($userID){
+function getAgentListings($order,$userID){
     $listings = array();
 
-    pg_prepare(db_connect(), 'getAgentListings', "SELECT * FROM listings WHERE user_id = $1");
+    if($order == CLOSED){ // all
+        pg_prepare(db_connect(), 'getAgentListings', "SELECT * FROM listings WHERE user_id = $1 AND status = '".CLOSED."' ORDER BY listed_date DESC");
+    }elseif($order == SOLD){ // sold
+        pg_prepare(db_connect(), 'getAgentListings', "SELECT * FROM listings WHERE user_id = $1 AND status = '".SOLD."' ORDER BY listed_date DESC");
+    }elseif($order == OPEN){ // open
+        pg_prepare(db_connect(), 'getAgentListings', "SELECT * FROM listings WHERE user_id = $1 AND status = '".OPEN."' ORDER BY listed_date DESC");
+    }elseif($order == HIDDEN){ // open
+        pg_prepare(db_connect(), 'getAgentListings', "SELECT * FROM listings WHERE user_id = $1 AND status = '".HIDDEN."' ORDER BY listed_date DESC");
+    }else{
+        pg_prepare(db_connect(), 'getAgentListings', "SELECT * FROM listings WHERE user_id = $1 ORDER BY listed_date DESC");
+    }
 
     $result = pg_execute(db_connect(), 'getAgentListings', array($userID));
 
@@ -148,7 +314,18 @@ function getListingsOnCity($city){
 
     return $listings;
 }
+// get listing
+function getListingData($id){
+    pg_prepare(db_connect(), 'getAllSearchedListings', "SELECT * FROM listings WHERE listing_id = $1");
 
+    $result = pg_execute(db_connect(), 'getAllSearchedListings', array($id));
+
+    if(pg_num_rows($result) > 0){
+        $listingData = pg_fetch_assoc($result);
+    }
+
+    return $listingData;
+}
 // function get all advanced search listing
 function getAllSearchedListings($searchData){
     $listings = array();

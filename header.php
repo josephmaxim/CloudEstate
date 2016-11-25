@@ -61,7 +61,7 @@ session_start();
                             <ul class="dropdown-menu">
                                 <li><a href="welcome.php">Profile</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Edit Profile</a></li>
+                                <li><a href="user-update.php">Edit Profile</a></li>
                                 <li><a href="user-password.php">Change Password</a></li>
                                 <li><a href="action.php?act=logout"><span class="text-danger">Logout</span></a></li>
                             </ul>

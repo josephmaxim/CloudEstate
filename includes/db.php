@@ -26,6 +26,20 @@ function is_user_id($userID){
     }
 }
 
+// Check if listing id exist in the database
+function listingIDExists($id){
+
+    pg_prepare(db_connect(), "check_userID","SELECT listing_id FROM listings WHERE listing_id=$1");
+    // Execute Query
+    $result = pg_execute(db_connect(), "check_userID", array($id));
+
+    if(pg_num_rows($result) > 0){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 function build_simple_dropdown($name,$arrayData){
 
     global $stickySessions;

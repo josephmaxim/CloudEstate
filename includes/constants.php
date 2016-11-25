@@ -30,8 +30,13 @@ DEFINE('POSTED_MAIL', "l");
 
 // Define listing status
 DEFINE('OPEN', "o");
-DEFINE('CLOSED', "p");
-DEFINE('SOLD', "l");
+DEFINE('CLOSED', "c");
+DEFINE('SOLD', "s");
+DEFINE('HIDDEN', "h");
 
 //Max listings results for listing preview
 DEFINE('MAX_RESULTS', 10);
+
+// Image upload constants
+DEFINE('MAX_IMAGE_UPLOAD', 5);
+DEFINE('MAX_FILE_SIZE', 1024*200); //200kb - Easy to add images

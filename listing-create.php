@@ -84,9 +84,9 @@ if(isset($_POST['submit'])){
     }
 
     // Validation for listing_status
-    if(isset($_POST['listing_status']) && $_POST['listing_status'] != ""){
-        $status = $_POST['listing_status'];
-        $stickySessions['listing_status'] = $status;
+    if(isset($_POST['status']) && $_POST['status'] != ""){
+        $status = $_POST['status'];
+        $stickySessions['status'] = $status;
     }else{
         array_push($errors, "- Please select a listing status!");
     }
@@ -192,96 +192,106 @@ if(isset($_POST['submit'])){
 
     <div class="content">
         <div class="container">
-            <h1 class="text-center">Create a Listing</h1>
-            <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <?php
-                            if (!empty($errors)) {
-                                ?>
-                                <div class="alert alert-danger alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                            aria-hidden="true">&times;</span></button>
-                                    <strong>Error(s):</strong><br/>
-                                    <?php
-                                    foreach ($errors as $errors) {
-                                        echo "<span>$errors</span><br/>";
-                                    }
-                                    ?>
-                                </div>
-                                <?php
-                            }
-                            if($success == true){
-                                ?>
-                                <div class="alert alert-success alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                            aria-hidden="true">&times;</span></button>
-                                    <p>You have successfully created a listing.</p>
-                                </div>
-                                <?php
-                            }
-                            ?>
-                            <div class="form-group">
-                                <label for="headLine">Head Line:</label>
-                                <input type="text" class="form-control" id="headLine" name="headLine" value="<?php echo $headline; ?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Description:</label>
-                                <textarea class="form-control" id="description" name="description"><?php echo $description; ?></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="price">Price:</label>
-                                <input type="text" class="form-control" id="price" name="price" value="<?php echo $price; ?>">
-                            </div>
-                            <?php
-                                build_radio("listing_status");
-                            ?>
-                            <div class="form-group">
-                                <label for="postal">Postal Code:</label>
-                                <input type="text" class="form-control" id="postal" name="postal" value="<?php echo $postal; ?>">
-                            </div>
-                            <?php
-
-                                build_simple_dropdown("city",getAllCity());
-
-                                build_dropdown("property_options");
-
-                            ?>
-                        </div>
-                        <div class="col-lg-6">
-                            <?php
-                                build_dropdown("bedrooms");
-
-                                build_dropdown("bathrooms");
-
-                                build_radio("listing_type");
-
-                                build_dropdown("storey");
-
-                                build_dropdown("building_type");
-                            ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <?php
-
-                            ?>
-                            <input type="submit" class="btn btn-warning" name="submit" value="Create listing">
-                            <br/>
-                            <br/>
-                        </div>
-                    </div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <ul class="nav nav-sidebar">
+                        <li><a href="dashboard.php">Dashboard</a></li>
+                        <li><a href="listing-create.php">Create Listing</a></li>
+                    </ul>
                 </div>
-            </form>
+
+                <div class="col-lg-10 content-left">
+                    <h1>Dashboard</h1>
+                    <p>Welcome administrator <strong><?php echo $_SESSION['userData']['userID']?></strong>, the last time you accessed the site was on <span class="text-success"><?php echo $_SESSION['userData']['last_access']?></span></p>
+                    <hr/>
+                    <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <?php
+                                if (!empty($errors)) {
+                                    ?>
+                                    <div class="alert alert-danger alert-dismissible" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
+                                        <strong>Error(s):</strong><br/>
+                                        <?php
+                                        foreach ($errors as $errors) {
+                                            echo "<span>$errors</span><br/>";
+                                        }
+                                        ?>
+                                    </div>
+                                    <?php
+                                }
+                                if($success == true){
+                                    ?>
+                                    <div class="alert alert-success alert-dismissible" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
+                                        <p>You have successfully created a listing.</p>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+                                <div class="form-group">
+                                    <label for="headLine">Head Line:</label>
+                                    <input type="text" class="form-control" id="headLine" name="headLine" value="<?php echo $headline; ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Description:</label>
+                                    <textarea class="form-control" id="description" name="description"><?php echo $description; ?></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="price">Price:</label>
+                                    <input type="text" class="form-control" id="price" name="price" value="<?php echo $price; ?>">
+                                </div>
+                                <?php
+                                    build_radio("status");
+                                ?>
+                                <div class="form-group">
+                                    <label for="postal">Postal Code:</label>
+                                    <input type="text" class="form-control" id="postal" name="postal" value="<?php echo $postal; ?>">
+                                </div>
+                                <?php
+
+                                    build_simple_dropdown("city",getAllCity());
+
+                                    build_dropdown("property_options");
+
+                                ?>
+                            </div>
+                            <div class="col-lg-6">
+                                <?php
+                                    build_dropdown("bedrooms");
+
+                                    build_dropdown("bathrooms");
+
+                                    build_radio("listing_type");
+
+                                    build_dropdown("storey");
+
+                                    build_dropdown("building_type");
+                                ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <?php
+
+                                ?>
+                                <input type="submit" class="btn btn-warning" name="submit" value="Create listing">
+                                <br/>
+                                <br/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-
 <?php
 // Include footer
 include_once('footer.php');

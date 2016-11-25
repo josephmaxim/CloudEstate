@@ -20,8 +20,9 @@ if(SessionCheck() == false) {
             <h1 class="text-center">Welcome! - User profile</h1>
             <p>Welcome <strong><?php echo $_SESSION['userData']['userID']?></strong>, the last time you accessed the site was on <span class="text-success"><?php echo $_SESSION['userData']['last_access']?></span></p>
             <?php
+            $userData = GetUserProfileInfo($_SESSION['userData']['userID']);
             // Display User info (Not final, just to show that it works)
-            foreach ($_SESSION['userData'] as $key => $value){
+            foreach ($userData as $key => $value){
                 echo "<li><strong>". $key . " :</strong> <i>" . $value ."</i></li>";
             }
             ?>

@@ -74,50 +74,59 @@ if(isset($_POST['submit'])){
 
     <div class="content">
         <div class="container">
-            <h1 class="text-center">Change Password</h1>
-            <div class="col-lg-4 col-lg-offset-4">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <?php
-                        if(!empty($errors)){
-                            ?>
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <strong>Error(s):</strong><br/>
-                                <?php
-                                foreach ($errors as $error){
-                                    echo "<span>$error</span><br/>";
-                                }
+                    <div class="col-lg-2">
+                        <ul class="nav nav-sidebar">
+                            <li><a href="user-update.php">Edit Profile</a></li>
+                            <li><a href="user-password.php">Change Password</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-10 content-left">
+                        <h1>Change password</h1>
+                        <p></p>
+                        <hr/>
+                        <div class="col-lg-6 col-lg-offset-3">
+                            <?php
+                            if(!empty($errors)){
                                 ?>
-                            </div>
-                            <?php
-                        }
-                        if($successMessage == true){
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <strong>Error(s):</strong><br/>
+                                    <?php
+                                    foreach ($errors as $error){
+                                        echo "<span>$error</span><br/>";
+                                    }
+                                    ?>
+                                </div>
+                                <?php
+                            }
+                            if($successMessage == true){
+                                ?>
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <p>You have successfully changed your password!</p>
+                                </div>
+                                <?php
+                            }
                             ?>
-                            <div class="alert alert-success alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <p>You have successfully changed your password!</p>
-                            </div>
-                            <?php
-                        }
-                        ?>
-                        <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
-                            <div class="form-group">
-                                <label for="current_pass">Current Password:</label>
-                                <input type="password" class="form-control" id="current_pass" name="current_pass" value="">
-                            </div>
-                            <div class="form-group">
-                                <label for="new_pass">New Password:</label>
-                                <input type="password" class="form-control" id="new_pass" name="new_pass" value="<?php echo $newPass; ?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="confirm_pass">Confirm New Password:</label>
-                                <input type="password" class="form-control" id="confirm_pass" name="confirm_pass" value="<?php echo $confirmPass; ?>">
-                            </div>
-                            <input class="btn btn-success" type="submit" name="submit" value="Change Password">
-                            <br/>
-                            <br/>
-                        </form>
+                            <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+                                <div class="form-group">
+                                    <label for="current_pass">Current Password:</label>
+                                    <input type="password" class="form-control" id="current_pass" name="current_pass" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="new_pass">New Password:</label>
+                                    <input type="password" class="form-control" id="new_pass" name="new_pass" value="<?php echo $newPass; ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirm_pass">Confirm New Password:</label>
+                                    <input type="password" class="form-control" id="confirm_pass" name="confirm_pass" value="<?php echo $confirmPass; ?>">
+                                </div>
+                                <input class="btn btn-success" type="submit" name="submit" value="Change Password">
+                                <br/>
+                                <br/>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

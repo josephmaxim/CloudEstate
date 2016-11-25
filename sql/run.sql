@@ -60,9 +60,13 @@ CREATE TABLE building_type ( property_id INTEGER PRIMARY KEY, property VARCHAR(1
 CREATE TABLE listing_stars ( property_id INTEGER PRIMARY KEY, property VARCHAR(15));
 
 
+drop sequence if exists listing_id_seq;
+create sequence listing_id_seq;
+select setval('listing_id_seq', 10000);
+
 CREATE TABLE listings
 (
-  listing_id SERIAL PRIMARY KEY,
+  listing_id NUMERIC PRIMARY KEY DEFAULT nextval('listing_id_seq'),
   user_id VARCHAR(20) REFERENCES users (user_id),
   status CHAR(1) NOT NULL,
   price NUMERIC NOT NULL,
@@ -84,13 +88,16 @@ CREATE TABLE listings
   listing_stars INTEGER DEFAULT 0 NOT NULL
 );
 
+ALTER TABLE listings AUTO_INCREMENT=100000;
+
 -- INSERTING DATA
-INSERT INTO listings VALUES( DEFAULT, 'dagunanj', 'a', 500000.00, '27 King Street For Sale!', 'House for sale! contact Joseph Dagunan!', 'U7F9B3', 0, 'ajax', 0, 3, 3, CURRENT_DATE, 0, 3, 0, 2000, 4);
+INSERT INTO listings VALUES( DEFAULT, 'dagunanj', 'o', 500000.00, '27 King Street For Sale!', 'House for sale! contact Joseph Dagunan!', 'U7F9B3', 0, 'ajax', 0, 3, 3, CURRENT_DATE, 0, 3, 0, 2000, 4);
 
 -- Insert table listing_status properties
 INSERT INTO status VALUES('o', 'Open');
-INSERT INTO status VALUES('p', 'Close');
-INSERT INTO status VALUES('l', 'Sold');
+INSERT INTO status VALUES('c', 'Close');
+INSERT INTO status VALUES('h', 'Hidden');
+INSERT INTO status VALUES('s', 'Sold');
 
 -- Insert table property_options properties
 INSERT INTO property_options VALUES(0, 'Stainless Appliances');

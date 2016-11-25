@@ -1,8 +1,8 @@
 <?php
-include_once('includes/functions.php');
-include_once('../includes/functions.php');
-include_once('../includes/db.php');
 include_once('../includes/constants.php');
+include_once('../includes/db.php');
+include_once('../includes/functions.php');
+include_once('includes/functions.php');
 include_once('includes/names.php');
 include_once('includes/city_provinces.php');
 include_once('includes/header.php');
@@ -11,7 +11,7 @@ include_once('includes/header.php');
 $agents = getAllAgentID();
 
 $listings = array();
-$status = array('s','a');
+$status = array('o','s','h','c');
 $address = array_merge($last_names, $male_names, $female_names);
 $streetSuffix = array("Dr.","Ave.","St.");
 
@@ -21,7 +21,7 @@ if(isset($_POST['populate'])){
 
     for($count = 0; $count <= 999; $count++){
         $randomAgent = $agents[rand(0,count($agents)-1)];
-        $listingStatus = $status[0];
+        $listingStatus = $status[rand(0,2)];
         $price = rand(200000,1000000);
         $province = array_keys($province_city)[rand(0,11)];
         $city = $province_city[$province][rand(0,count($province_city[$province])-1)];

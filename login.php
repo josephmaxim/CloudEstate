@@ -112,6 +112,8 @@ if(isset($_POST['submit'])){
                     <br/>
                     <p class="" style="color: #333333;">
                         Don't have an account? <a href="register.php">Signup here!</a>
+                        <br/>
+                        Forgot your password? <a href="password-request.php">Reset it here!</a>
                     </p>
                 </div>
             </div>
