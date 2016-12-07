@@ -57,6 +57,8 @@ if(isset($_POST['submit'])){
             {
                 array_push($errors, "- Your account has been suspended. Please contact system administrator!");
                 session_destroy();
+                setcookie("disableMSG", "Your account has been suspended. Please contact system administrator!");
+                header( "Refresh:2; url=aup.php", true, 303);
             }
             elseif($_SESSION['userData']['user_type'] == CLIENT)
             {

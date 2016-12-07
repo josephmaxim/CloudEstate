@@ -1,4 +1,6 @@
 
+DROP TABLE IF EXISTS reports;
+DROP TABLE IF EXISTS favourites;
 DROP TABLE IF EXISTS people;
 DROP TABLE IF EXISTS listings;
 DROP TABLE IF EXISTS status;
@@ -59,7 +61,6 @@ CREATE TABLE storey ( property_id INTEGER PRIMARY KEY, property VARCHAR(15));
 CREATE TABLE building_type ( property_id INTEGER PRIMARY KEY, property VARCHAR(15));
 CREATE TABLE listing_stars ( property_id INTEGER PRIMARY KEY, property VARCHAR(15));
 
-
 drop sequence if exists listing_id_seq;
 create sequence listing_id_seq;
 select setval('listing_id_seq', 10000);
@@ -88,7 +89,21 @@ CREATE TABLE listings
   listing_stars INTEGER DEFAULT 0 NOT NULL
 );
 
-ALTER TABLE listings AUTO_INCREMENT=100000;
+CREATE TABLE reports
+(
+	user_id VARCHAR(20) NOT NULL REFERENCES users (user_id),
+	listing_id INTEGER NOT NULL REFERENCES listings (listing_id),
+	reported_on DATE NOT NULL,
+	status CHAR(1) NOT NULL
+);
+
+
+CREATE TABLE favourites
+(
+	user_id VARCHAR(20) NOT NULL REFERENCES users (user_id),
+	listing_id INTEGER NOT NULL REFERENCES listings (listing_id)
+);
+
 
 -- INSERTING DATA
 INSERT INTO listings VALUES( DEFAULT, 'dagunanj', 'o', 500000.00, '27 King Street For Sale!', 'House for sale! contact Joseph Dagunan!', 'U7F9B3', 0, 'ajax', 0, 3, 3, CURRENT_DATE, 0, 3, 0, 2000, 4);

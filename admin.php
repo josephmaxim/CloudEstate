@@ -20,74 +20,111 @@ else
 {
     header("Location: index.php");
 }
+$pendingAgents = GetPendingAgents();
+$reportedListings = GetAllReportedListing();
 ?>
 
     <div class="content">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <ul class="nav nav-sidebar">
-                        <li><a href="#">Manage User Profile</a></li>
-                        <li><a href="#">Manage Listing</a></li>
-                        <li><a href="#">Export</a></li>
+                        <li><a href="admin.php">Admin Page</a></li>
+                        <li><a href="disabled-users.php">Disabled Users</a></li>
                     </ul>
                 </div>
-
-                <div class="col-lg-9" style="background: #efefef;">
-                    <h1 class="page-header">Admin Page</h1>
+                <div class="col-lg-10 content-left">
+                    <h1>Administrator</h1>
+                    <hr/>
+                    <?php
+                    if(isset($_COOKIE['disable_listing'])) {
+                        echo '<div class="alert alert-success" role="alert">
+                              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                              Successfully disabled listing!
+                              </div>';
+                        setcookie("disable_listing", "");
+                    }
+                    ?>
+                    <p>Welcome administrator <strong><?php echo $_SESSION['userData']['userID']?></strong>, the last time you accessed the site was on <span class="text-success"><?php echo $_SESSION['userData']['last_access']?></span></p>
+<!--                    <h2 class="sub-header">Section title</h2>-->
+                    <hr/>
                     <div class="row">
-                        <div class="col-xs-6 col-sm-3">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                            <h4>Label</h4>
-                            <span class="text-muted">Something else</span>
-                        </div>
-                        <div class="col-xs-6 col-sm-3 placeholder">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                            <h4>Label</h4>
-                            <span class="text-muted">Something else</span>
-                        </div>
-                        <div class="col-xs-6 col-sm-3 placeholder">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                            <h4>Label</h4>
-                            <span class="text-muted">Something else</span>
-                        </div>
-                        <div class="col-xs-6 col-sm-3 placeholder">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                            <h4>Label</h4>
-                            <span class="text-muted">Something else</span>
+                        <div class="col-lg-12">
+                            <?php
+                            if(isset($_COOKIE['adminMsg'])) {
+                                echo '<div class="alert alert-warning" role="alert">
+                              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                              '.$_COOKIE['adminMsg'].'
+                              </div>';
+                                setcookie("adminMsg", "");
+                            }
+                            ?>
+                            <div class="panel panel-warning">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Pending Agents</h3>
+                                </div>
+                                <div class="panel-scroll">
+                                    <table class="table table-striped table-responsive">
+                                        <thead>
+                                        <tr>
+                                            <th>UserID</th>
+                                            <th>Email</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <?php
+                                        foreach($pendingAgents as $key => $agent){
+                                            echo'<tr>';
+                                            echo '<td class="vert-align">'.$agent['user_id'].'</td>';
+                                            echo '<td class="vert-align">'.$agent['email_address'].'</td>';
+                                            echo '<td class="vert-align"><a href="action.php?act=enableAgent&user_id='.$agent['user_id'].'" class="btn btn-sm btn-success">Enable Agent</a> <a href="action.php?act=disableUser&user_id='.$agent['user_id'].'" class="btn btn-sm btn-danger">Disable Account</a></td>';
+                                            echo'</tr>';
+                                        }
+                                        ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-danger">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Offensive Listing</h3>
+                                </div>
+                                <div class="panel-scroll">
+                                    <table class="table table-striped table-responsive">
+                                        <thead>
+                                        <tr>
+                                            <th>Reporter ID</th>
+                                            <th>Full Name</th>
+                                            <th>Heading</th>
+                                            <th>Reported On</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
 
-                    <h2 class="sub-header">Section title</h2>
-                    <p>Welcome administrator <strong><?php echo $_SESSION['userData']['userID']?></strong>, the last time you accessed the site was on <span class="text-success"><?php echo $_SESSION['userData']['last_access']?></span></p>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Header</th>
-                                <th>Header</th>
-                                <th>Header</th>
-                                <th>Header</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1,001</td>
-                                <td>Lorem</td>
-                                <td>ipsum</td>
-                                <td>dolor</td>
-                                <td>sit</td>
-                            </tr>
-                            <tr>
-                                <td>1,002</td>
-                                <td>amet</td>
-                                <td>consectetur</td>
-                                <td>adipiscing</td>
-                                <td>elit</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                        <tbody>
+                                        <?php
+                                        foreach($reportedListings as $key => $report){
+                                            echo'<tr>';
+                                            echo '<td class="vert-align">'.$report['user_id'].'</td>';
+                                            echo '<td class="vert-align">'.GetUserProfileInfo($report['user_id'])['first_name']." ".GetUserProfileInfo($report['user_id'])['last_name'].'</td>';
+                                            echo '<td class="vert-align">'.getListingData($report['listing_id'])['headline'].'</td>';
+                                            echo '<td class="vert-align">'.$report['reported_on'].'</td>';
+                                            echo '<td class="vert-align"><a href="listing-display.php?listing_id='.$report['listing_id'].'" class="btn btn-sm btn-info">View</a> <a href="action.php?act=banReporter&user_id='.$report['user_id'].'&listing_id='.$report['listing_id'].'" class="btn btn-sm btn-danger">Ban Reporter</a> <a href="action.php?act=closeReport&user_id='.$report['user_id'].'&listing_id='.$report['listing_id'].'" class="btn btn-sm btn-warning">Close Report</a></td>';
+                                            echo'</tr>';
+                                        }
+                                        ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -214,6 +214,7 @@ if (isset($_POST['submit']))
             <div class="row">
                 <div class="col-lg-2">
                     <ul class="nav nav-sidebar">
+                        <li><a href="welcome.php">Profile (welcome)</a></li>
                         <li><a href="user-update.php">Edit Profile</a></li>
                         <li><a href="user-password.php">Change Password</a></li>
                     </ul>

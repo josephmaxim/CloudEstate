@@ -72,6 +72,51 @@ function InsertUser($data){
         return false;
     }
 }
+// get pending agents
+function GetPendingAgents(){
+    $pendingAgents = array();
+    // Prepare the Query
+    pg_prepare(db_connect(), "GetPendingAgents","SELECT * FROM users WHERE user_type = '".PENDING_AGENT."'");
+    // Execute Query
+    $result = pg_execute(db_connect(), "GetPendingAgents", array());
+
+    if(pg_num_rows($result) > 0){
+        while ($row = pg_fetch_array($result)){
+            array_push($pendingAgents, $row);
+        }
+    }
+    return $pendingAgents;
+
+}
+
+// get pending agents
+function GetDisabledUsers(){
+    $data = array();
+    // Prepare the Query
+    pg_prepare(db_connect(), "GetDisabledUsers","SELECT * FROM users WHERE user_type = '".SUSPENDED_USER."'");
+    // Execute Query
+    $result = pg_execute(db_connect(), "GetDisabledUsers", array());
+
+    if(pg_num_rows($result) > 0){
+        while ($row = pg_fetch_array($result)){
+            array_push($data, $row);
+        }
+    }
+    return $data;
+
+}
+// enable agent
+function EnableAgent($user_id){
+    $rand = rand(100000,999999);
+    // Prepare SQL
+    pg_prepare(db_connect(), "$rand", "UPDATE users SET user_type = '".AGENT."' WHERE user_id = $1;");
+
+    // Execute SQL
+    $result = pg_execute(db_connect(),"$rand", array($user_id)) or die("Error while inserting.");
+
+    return $result;
+}
+
 // Reset password
 function resetPassword($userID, $email){
     // Prepare the Query
@@ -107,6 +152,79 @@ function generateRandomString() {
     }
     return $randomString;
 }
+// Save Listing to favourites
+function SaveListingToFavourites($user_id,$listing_id){
+    pg_prepare(db_connect(), "save_fav","INSERT INTO favourites VALUES($1,$2);");
+    // Execute Query
+    $result = pg_execute(db_connect(), "save_fav", array($user_id,$listing_id));
+
+    if($result){
+        return true;
+    }else{
+        return false;
+    }
+}
+// remove Listing to favourites
+function RemoveListingToFavourites($user_id,$listing_id){
+    $rand = rand(100000,999999);
+    pg_prepare(db_connect(), "$rand","DELETE FROM favourites WHERE user_id = $1 AND listing_id = $2");
+    // Execute Query
+    $result = pg_execute(db_connect(), "$rand", array($user_id,$listing_id));
+
+    if($result){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+// report listing
+function ReportListing($user_id,$listing_id){
+    pg_prepare(db_connect(), "ReportListing","INSERT INTO reports VALUES($1,$2,CURRENT_DATE,'".OPEN."');");
+    // Execute Query
+    $result = pg_execute(db_connect(), "ReportListing", array($user_id,$listing_id));
+
+    if($result){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+// update report status
+function UpdateReportStatus($user_id,$listing_id){
+    pg_prepare(db_connect(),'UpdateReportStatus', "UPDATE reports SET status ='".CLOSED."' WHERE user_id = $1 AND listing_id = $2;");
+
+    // Execute SQL
+    $result = pg_execute(db_connect(),'UpdateReportStatus', array($user_id, $listing_id)) or die("Error while inserting.");
+}
+// check if user already reported
+function CheckIfUserReported($user_id,$listing_id){
+    pg_prepare(db_connect(), "Check_report","SELECT * FROM reports WHERE user_id = $1 AND listing_id = $2");
+    // Execute Query
+    $result = pg_execute(db_connect(), "Check_report", array($user_id,$listing_id));
+
+    if(pg_num_rows($result) != 0){
+        return true;
+    }else{
+        return false;
+    }
+}
+// get all reported listing
+function GetAllReportedListing(){
+    $data = array();
+    pg_prepare(db_connect(), "GetAllReportedListing","SELECT * FROM reports WHERE status = '".OPEN."' ORDER BY reported_on DESC");
+    // Execute Query
+    $result = pg_execute(db_connect(), "GetAllReportedListing", array());
+
+    if(pg_num_rows($result) > 0){
+        while ($row = pg_fetch_array($result)){
+            array_push($data, $row);
+        }
+    }
+
+    return $data;
+}
 
 // Insert listing
 function insertListing($listingData){
@@ -135,6 +253,48 @@ function changePassword($pass){
     }else{
         return false;
     }
+}
+
+// Disable listing
+function DisableUser($user_id){
+    // Prepare SQL
+    pg_prepare(db_connect(),'DisableUser', "UPDATE users SET user_type = 'X' WHERE user_id = $1;");
+
+    // Execute SQL
+    $result = pg_execute(db_connect(),'DisableUser', array($user_id)) or die("Error while inserting.");
+
+    $deleteFav = pg_query(db_connect(), "DELETE FROM favourites WHERE user_id='$user_id'");
+
+    return $result;
+}
+// checks user favourite
+function CheckUserFavourite($listing_id, $user_id){
+    pg_prepare(db_connect(),'DisableUser', "SELECT * FROM favourites WHERE listing_id = $1 AND user_id = $2");
+
+    // Execute SQL
+    $result = pg_execute(db_connect(),'DisableUser', array($listing_id,$user_id)) or die("Error while inserting.");
+
+    if(pg_num_rows($result) == 0){
+        return false;
+    }else{
+        return true;
+    }
+}
+// get user favourites
+function GetUserFavourites($user_id){
+    $favourites = array();
+
+    pg_prepare(db_connect(), 'getAgentListings', "SELECT * FROM favourites WHERE user_id = $1");
+
+    $result = pg_execute(db_connect(), 'getAgentListings', array($user_id));
+
+    if(pg_num_rows($result) > 0){
+        while ($row = pg_fetch_array($result)){
+            array_push($favourites, $row);
+        }
+    }
+
+    return $favourites;
 }
 
 // Get all user info
@@ -201,6 +361,22 @@ function editUserProfile($userID, $inputData){
     }else{
         return false;
     }
+}
+// Disable listing
+function DisableListing($listing_id){
+    // Prepare SQL
+    pg_prepare(db_connect(),'Disable_listing', "
+        UPDATE 
+            listings 
+        SET 
+            status = 'c'
+        WHERE 
+            listing_id = $1;");
+
+    // Execute SQL
+    $result = pg_execute(db_connect(),'Disable_listing', array($listing_id)) or die("Error while inserting.");
+
+    return $result;
 }
 
 // Update listing
@@ -316,9 +492,10 @@ function getListingsOnCity($city){
 }
 // get listing
 function getListingData($id){
-    pg_prepare(db_connect(), 'getAllSearchedListings', "SELECT * FROM listings WHERE listing_id = $1");
+    $rand = rand(100000,999999);
+    pg_prepare(db_connect(), "$rand", "SELECT * FROM listings WHERE listing_id = $1");
 
-    $result = pg_execute(db_connect(), 'getAllSearchedListings', array($id));
+    $result = pg_execute(db_connect(), "$rand", array($id));
 
     if(pg_num_rows($result) > 0){
         $listingData = pg_fetch_assoc($result);

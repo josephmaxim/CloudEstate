@@ -33,7 +33,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <span>&copy; 2016 Cloud Estate. All Rights Reserved.</span>
+                    <span>&copy; 2016 Cloud Estate. All Rights Reserved | <a href="privacy_policy.php">Privacy Policy</a> | <a href="aup.php">AUP</a></span>
                 </div>
                 <div class="col-lg-6 text-right">
                     <p>
