@@ -46,12 +46,12 @@ if(isset($_GET['pg']) && $_GET['pg'] > 0 && $_GET['pg'] < $numberOfPages + 1){
                     <h1>Disabled Users</h1>
                     <hr/>
                     <?php
-                    if(isset($_COOKIE['disable_listing'])) {
+                    if(isset($_COOKIE['enableUser'])) {
                         echo '<div class="alert alert-success" role="alert">
                               <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                              Successfully disabled listing!
+                              Successfully enabled user!
                               </div>';
-                        setcookie("disable_listing", "");
+                        setcookie("enableUser", "");
                     }
                     ?>
                     <nav aria-label="Page navigation" class="text-center">
@@ -95,7 +95,7 @@ if(isset($_GET['pg']) && $_GET['pg'] > 0 && $_GET['pg'] < $numberOfPages + 1){
                                     echo "<td>".$disabledUsers[$count]['user_id']."</td>";
                                     echo "<td>".GetUserProfileInfo($disabledUsers[$count]['user_id'])['first_name']. " " .GetUserProfileInfo($disabledUsers[$count]['user_id'])['last_name']."</td>";
                                     echo "<td>".$disabledUsers[$count]['email_address']."</td>";
-                                    echo '<td>NONE</td>';
+                                    echo '<td><a class="btn btn-success btn-sm" href="action.php?act=enableUser&user_id='.$disabledUsers[$count]['user_id'].'">Enable User</a></td>';
                                     echo '</tr>';
                                 }
                             }

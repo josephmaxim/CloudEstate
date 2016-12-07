@@ -34,6 +34,13 @@ if(isset($act)){
         header("Location: admin.php");
     }
 
+    // enables user(client)
+    elseif($act == 'enableUser'){
+        EnableUser($_GET['user_id']);
+        setcookie('enableUser', '<span class="text-success">Successfully enabled user</span> '.$_GET['user_id']);
+        header("Location: disabled-users.php");
+    }
+
     // Disable User
     elseif($act == 'disableUser'){
         DisableUser($_GET['user_id']);

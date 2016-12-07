@@ -116,7 +116,17 @@ function EnableAgent($user_id){
 
     return $result;
 }
+// enable user
+function EnableUser($user_id){
+    $rand = rand(100000,999999);
+    // Prepare SQL
+    pg_prepare(db_connect(), "$rand", "UPDATE users SET user_type = '".CLIENT."' WHERE user_id = $1;");
 
+    // Execute SQL
+    $result = pg_execute(db_connect(),"$rand", array($user_id)) or die("Error while inserting.");
+
+    return $result;
+}
 // Reset password
 function resetPassword($userID, $email){
     // Prepare the Query
