@@ -205,7 +205,8 @@ if(isset($_POST['submit'])){
                 <div class="col-lg-6">
                     <h3>What you get from being a member</h3>
                     <ul>
-                        <li>Alex make a list of our sites features in here</li>
+                        <li>You get to choose your houses instead of just browsing!</li>
+                        <li>When you see an exciting listing, you will get contact info for the owner.</li>
                     </ul>
                 </div>
             </div>
