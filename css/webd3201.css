@@ -26,6 +26,8 @@ h4 { font-size: 14px;}
 .panel-scroll { max-height: 300px; overflow: scroll;}
 .form-check-label {font-size: 14px; font-weight: 300 !important;}
 .caption {padding-bottom: 0!important;}
+.listing-display-title{ font-weight: 700}
+.listing-display-body{ padding: 15px 0px;}
 
 /* Footer Style */
 footer {overflow: auto; width: 100%; background: #323a45; color: #ffffff; padding: 20px 0px 0px 0px;}

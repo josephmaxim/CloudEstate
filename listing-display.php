@@ -60,7 +60,6 @@ if($listingData['status'] == CLOSED) {
     ?>
         <div class="content">
             <div class="container">
-                <h1 class="text-center">Listing <?php echo $listingID; ?></h1>
                 <form class="text-right" action="<?php echo $_SERVER['PHP_SELF'] . "?listing_id=$listingID" ?>"
                       method="post">
                     <?php
@@ -95,34 +94,99 @@ if($listingData['status'] == CLOSED) {
                 ?>
                 </form>
                 <hr/>
-                <h3>Main set image</h3>
-                <?php
-            if ($listingData['images'] == 0) {
-                echo '<img width="400px" height="400px" src="img/noimage.jpg"/>';
-            } else {
-                echo '<img width="400px" height="400px" src="' . $listingDirPath . $listingID . '_' . $listingData['images'] . '.jpg"/>';
-            }
-            ?>
-                <hr/>
-                <h3>All Images</h3>
-                <?php
-            if (file_exists($listingDirPath)) {
-                $files = array_diff(scandir($listingDirPath), array('.', '..'));
-                foreach ($files as $file) {
-                    echo ' <img width="100px" height="100px" src="' . $listingDirPath . $file . '"/>';
-                }
-            } else {
-                echo '<strong>No images upload</strong>';
-            }
-            ?>
-                <hr/>
-                <h3>All listing info</h3>
-                <?php
-            // Display User info (Not final, just to show that it works)
-            foreach ($listingData as $key => $value) {
-                echo "<li><strong>" . $key . " :</strong> <i>" . $value . "</i></li>";
-            }
-            ?>
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="overflow: auto;">
+                        <div class="col-lg-6 panel-title listing-display-title"><?php echo $listingData['headline']?></div><div class="text-right col-lg-6">Views: <span class="label label-info"><?php echo $listingData['listing_views'];?></span> </div>
+                    </div>
+                    <div class="panel-body listing-display-body">
+                        <div class="col-lg-5">
+                            <?php
+                            if ($listingData['images'] == 0) {
+                                echo '<img width="100%" src="img/noimage.jpg"/>';
+                            } else {
+                                echo '<img width="400px" height="400px" src="' . $listingDirPath . $listingID . '_' . $listingData['images'] . '.jpg"/>';
+                            }
+                            ?>
+                            <hr/>
+                            <?php
+                            if (file_exists($listingDirPath)) {
+                                $files = array_diff(scandir($listingDirPath), array('.', '..'));
+                                foreach ($files as $file) {
+                                    echo ' <img width="100px" height="100px" src="' . $listingDirPath . $file . '"/>';
+                                }
+                            } else {
+                                echo '<p class="text-center">No images uploaded by the agent.</p>';
+                            }
+                            ?>
+                        </div>
+                        <div class="col-lg-7">
+                            <table class="table profile-info">
+                                <tbody>
+                                <tr>
+                                    <td><strong>Description: </strong></td>
+                                    <td><?php echo $listingData['description'];?></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <table class="table profile-info">
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>Price:</strong></td>
+                                                <td><span class="text-success"><?php echo asDollars($listingData['price']);?></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Agent:</strong></td>
+                                                <td><?php echo GetUserProfileInfo($listingData['user_id'])['salutation']." ".GetUserProfileInfo($listingData['user_id'])['first_name']." " .GetUserProfileInfo($listingData['user_id'])['last_name'] ;?></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Story: </strong></td>
+                                                <td><?php echo get_property("storey",$listingData['storey']);?></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Listing Type: </strong></td>
+                                                <td><?php echo get_property("listing_type",$listingData['listing_type']);?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-lg-6">
+                                    <table class="table profile-info">
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>Status: </strong></td>
+                                                <td><?php echo get_property("status",$listingData['status']);?></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Posted: </strong></td>
+                                                <td><?php echo $listingData['listed_date'];?></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Bedrooms: </strong></td>
+                                                <td><?php echo get_property("bedrooms",$listingData['bedrooms']);?></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Bathrooms: </strong></td>
+                                                <td><?php echo get_property("bathrooms",$listingData['bathrooms']);?></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Stars: </strong></td>
+                                                <td>
+                                                    <?php
+                                                    for($count = 0; $count < $listingData['listing_stars']+1; $count++){
+                                                        echo '<img width="20px" src="img/star.png">';
+                                                    }
+                                                    ?>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
