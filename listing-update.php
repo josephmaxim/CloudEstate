@@ -257,7 +257,7 @@ if($_GET['id'] == ""){
                                     <input type="text" class="form-control" id="price" name="price" value="<?php echo $listingData['price']; ?>">
                                 </div>
                                 <?php
-                                build_radio("status");
+                                build_dropdown("status");
                                 ?>
                                 <div class="form-group">
                                     <label for="postal">Postal Code:</label>
@@ -277,7 +277,7 @@ if($_GET['id'] == ""){
 
                                 build_dropdown("bathrooms");
 
-                                build_radio("listing_type");
+                                build_dropdown("listing_type");
 
                                 build_dropdown("storey");
 
