@@ -2,22 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="071eb55a-4352-492e-b07e-9a920a9b945d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/img/noimage.jpg" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/img/noimagefound.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/webd3201.css" afterPath="$PROJECT_DIR$/css/webd3201.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/header.php" afterPath="$PROJECT_DIR$/header.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/includes/db.php" afterPath="$PROJECT_DIR$/includes/db.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/includes/functions.php" afterPath="$PROJECT_DIR$/includes/functions.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/listing-city.php" afterPath="$PROJECT_DIR$/listing-city.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/listing-create.php" afterPath="$PROJECT_DIR$/listing-create.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/listing-display.php" afterPath="$PROJECT_DIR$/listing-display.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/listing-matches.php" afterPath="$PROJECT_DIR$/listing-matches.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/listing-search.php" afterPath="$PROJECT_DIR$/listing-search.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/population_scripts/includes/city_provinces.php" afterPath="$PROJECT_DIR$/population_scripts/includes/city_provinces.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/population_scripts/listings-population.php" afterPath="$PROJECT_DIR$/population_scripts/listings-population.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/population_scripts/users-population.php" afterPath="$PROJECT_DIR$/population_scripts/users-population.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/welcome.php" afterPath="$PROJECT_DIR$/welcome.php" />
     </list>
     <ignored path="opentech.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,7 +23,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="listing-matches.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="listing-search.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/listing-search.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="329">
+              <caret line="102" column="126" selection-start-line="102" selection-start-column="126" selection-end-line="102" selection-end-column="126" />
+              <folding>
+                <marker date="1481520489294" expanded="true" signature="1806:1860" ph="SELECT listi... listings" />
+                <marker date="1481520489294" expanded="true" signature="1806:1927" ph="SELECT listi... listings" />
+                <marker date="1481520489294" expanded="true" signature="1806:2071" ph="SELECT listi... listings" />
+                <marker date="1481520489294" expanded="true" signature="1806:2081" ph="SELECT listi... listings" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="listing-matches.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/listing-matches.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="601">
@@ -217,7 +217,6 @@
         <option value="$PROJECT_DIR$/listing-city.php" />
         <option value="$PROJECT_DIR$/listing-create.php" />
         <option value="$PROJECT_DIR$/includes/db.php" />
-        <option value="$PROJECT_DIR$/listing-search.php" />
         <option value="$PROJECT_DIR$/population_scripts/users-population.php" />
         <option value="$PROJECT_DIR$/population_scripts/listings-population.php" />
         <option value="$PROJECT_DIR$/population_scripts/includes/city_provinces.php" />
@@ -226,6 +225,7 @@
         <option value="$PROJECT_DIR$/dashboard.php" />
         <option value="$PROJECT_DIR$/css/webd3201.css" />
         <option value="$PROJECT_DIR$/listing-matches.php" />
+        <option value="$PROJECT_DIR$/listing-search.php" />
       </list>
     </option>
   </component>
@@ -283,20 +283,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="group15" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="group15" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="group15" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -393,12 +379,12 @@
       <workItem from="1480905472471" duration="35397000" />
       <workItem from="1481152433319" duration="2231000" />
       <workItem from="1481227747223" duration="12274000" />
-      <workItem from="1481414451611" duration="11701000" />
+      <workItem from="1481414451611" duration="13803000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="236022000" />
+    <option name="totallyTimeSpent" value="238124000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
@@ -738,33 +724,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/listing-search.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="92" column="41" selection-start-line="92" selection-start-column="41" selection-end-line="92" selection-end-column="41" />
-          <folding>
-            <marker date="1481419439233" expanded="true" signature="1806:1860" ph="SELECT listi... listings" />
-            <marker date="1481419439233" expanded="true" signature="1806:1927" ph="SELECT listi... listings" />
-            <marker date="1481419439233" expanded="true" signature="1806:2071" ph="SELECT listi... listings" />
-            <marker date="1481419439233" expanded="true" signature="1806:2081" ph="SELECT listi... listings" />
-            <marker date="1481419439233" expanded="true" signature="2424:2708" ph="..." />
-            <marker date="1481419439233" expanded="true" signature="2456:2708" ph="..." />
-            <marker date="1481419439233" expanded="true" signature="2494:2607" ph="..." />
-            <marker date="1481419439233" expanded="true" signature="2643:2708" ph="..." />
-            <marker date="1481419439233" expanded="true" signature="2785:4065" ph="..." />
-            <marker date="1481419439233" expanded="true" signature="2841:2999" ph="..." />
-            <marker date="1481419439233" expanded="true" signature="3055:3205" ph="..." />
-            <marker date="1481419439233" expanded="true" signature="3261:3413" ph="..." />
-            <marker date="1481419439233" expanded="true" signature="3469:3617" ph="..." />
-            <marker date="1481419439233" expanded="true" signature="3673:3828" ph="..." />
-            <marker date="1481419439233" expanded="true" signature="3884:4038" ph="..." />
-            <marker date="1481419439233" expanded="true" signature="4103:4130" ph="..." />
-            <marker date="1481419439233" expanded="true" signature="4168:4465" ph="..." />
-            <marker date="1481419439233" expanded="true" signature="4228:4438" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/population_scripts/includes/city_provinces.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -937,6 +896,19 @@
             <marker date="1481518892180" expanded="true" signature="3987:4000" ph="..." />
             <marker date="1481518892180" expanded="true" signature="4118:4132" ph="..." />
             <marker date="1481518892180" expanded="true" signature="6899:6932" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/listing-search.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="102" column="126" selection-start-line="102" selection-start-column="126" selection-end-line="102" selection-end-column="126" />
+          <folding>
+            <marker date="1481520489294" expanded="true" signature="1806:1860" ph="SELECT listi... listings" />
+            <marker date="1481520489294" expanded="true" signature="1806:1927" ph="SELECT listi... listings" />
+            <marker date="1481520489294" expanded="true" signature="1806:2071" ph="SELECT listi... listings" />
+            <marker date="1481520489294" expanded="true" signature="1806:2081" ph="SELECT listi... listings" />
           </folding>
         </state>
       </provider>

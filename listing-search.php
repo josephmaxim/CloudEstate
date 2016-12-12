@@ -100,7 +100,7 @@ if(isset($_POST['submit'])){
         <div class="container">
             <div class="text-center">
                 <h1>Search Listing in <?php echo $selectedCity?></h1>
-                <p></p>
+                <p>Use the selection below to filter search results otherwise click the Search Listing button to display all listings.<br/></p>
             </div>
             <div class="col-lg-12">
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF'].'?City='.$selectedCity;?>">
