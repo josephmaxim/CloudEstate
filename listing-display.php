@@ -174,7 +174,7 @@ if($listingData['status'] == CLOSED) {
                                                 <td><strong>Stars: </strong></td>
                                                 <td>
                                                     <?php
-                                                    for($count = 0; $count < $listingData['listing_stars']+1; $count++){
+                                                    for($count = 0; $count < $listingData['listing_stars']; $count++){
                                                         echo '<img width="20px" src="img/star.png">';
                                                     }
                                                     ?>
