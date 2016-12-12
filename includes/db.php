@@ -89,26 +89,54 @@ function build_dropdown($tableName){
 
 function build_radio($tableName){
 
-    global $stickySessions;
+
 
     pg_prepare(db_connect(), "$tableName","SELECT * FROM $tableName;");
     // Execute Query
     $result = pg_execute(db_connect(), "$tableName", array());
 
-    echo '<div class="form-group">';
-    echo '<label for="'.$tableName.'">'.$tableName.':</label>';
+    echo '<label class="build-radio" for="'.$tableName.'">'.$tableName.':</label>';
 
     while($row = pg_fetch_array($result)){
-        echo '<div class="radio"><label><input type="radio" name="'.$tableName.'" value="'.$row[0].'"';
-        if(isset($stickySessions[$tableName])){
-            if($stickySessions[$tableName] == $row[0]){
-                echo ' checked="checked" ';
-            }
+
+        if(isset($_POST[$row['1']])){
+            $_SESSION[$row['1']] = $_POST[$row['1']];
         }
-        echo '>'.$row['property'].'</label></div>';
+
+        echo '<div class="form-check has-success">';
+        echo '<label class="form-check-label">';
+        echo '<input type="checkbox" class="form-check-input" name="'.$tableName.'[]" value="'.$row[0].'"';
+        if(isset($_SESSION[$row['1']])){
+                echo ' checked="checked" ';
+        }
+        echo '> '.$row['property'];
+        echo '</label>';
+        echo '</div>';
     }
-    echo '</div>';
 }
+
+//function build_radio($tableName){
+//
+//    global $stickySessions;
+//
+//    pg_prepare(db_connect(), "$tableName","SELECT * FROM $tableName;");
+//    // Execute Query
+//    $result = pg_execute(db_connect(), "$tableName", array());
+//
+//    echo '<div class="form-group">';
+//    echo '<label for="'.$tableName.'">'.$tableName.':</label>';
+//
+//    while($row = pg_fetch_array($result)){
+//        echo '<div class="radio"><label><input type="radio" name="'.$tableName.'" value="'.$row[0].'"';
+//        if(isset($stickySessions[$tableName])){
+//            if($stickySessions[$tableName] == $row[0]){
+//                echo ' checked="checked" ';
+//            }
+//        }
+//        echo '>'.$row['property'].'</label></div>';
+//    }
+//    echo '</div>';
+//}
 
 function get_property($tableName,$property){
     $query_name = rand(0,9999999999);

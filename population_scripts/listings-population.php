@@ -23,7 +23,7 @@ if(isset($_POST['populate'])){
         $randomAgent = $agents[rand(0,count($agents)-1)];
         $listingStatus = $status[rand(0,2)];
         $price = rand(200000,1000000);
-        $province = array_keys($province_city)[rand(0,11)];
+        $province = array_keys($province_city)[0];
         $city = $province_city[$province][rand(0,count($province_city[$province])-1)];
         $headLine = rand(1000, 9999) . " " . ucwords(strtolower($address[rand(0,count($address)-1)])) ." ".$streetSuffix[rand(0,count($streetSuffix)-1)] .", ".$city.", ". $province . " " . fakePostalCode();
         $description = randomDescription();

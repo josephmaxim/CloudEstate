@@ -26,7 +26,7 @@ if(isset($_POST['populate'])){
         $streetNum = rand(10,99);
         $streetName = ucwords(strtolower($last_names[rand(0,count($last_names)-1)]));
         $address = "".$streetNum." ".$streetName." ".$streetSuffix[rand(0,count($streetSuffix)-1)];
-        $province = array_keys($province_city)[rand(0,11)];
+        $province = array_keys($province_city)[0];
         $city = $province_city[$province][rand(0,count($province_city[$province])-1)];
         $postal = fakePostalCode();
         $phone = rand(1,9).rand(1,9).rand(1,9).rand(1,9).rand(1,9).rand(1,9).rand(1,9).rand(1,9).rand(1,9).rand(1,9);

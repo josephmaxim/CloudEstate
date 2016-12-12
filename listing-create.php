@@ -249,7 +249,7 @@ if(isset($_POST['submit'])){
                                     <input type="text" class="form-control" id="price" name="price" value="<?php echo $price; ?>">
                                 </div>
                                 <?php
-                                    build_radio("status");
+                                    build_dropdown("status");
                                 ?>
                                 <div class="form-group">
                                     <label for="postal">Postal Code:</label>
@@ -269,7 +269,7 @@ if(isset($_POST['submit'])){
 
                                     build_dropdown("bathrooms");
 
-                                    build_radio("listing_type");
+                                    build_dropdown("listing_type");
 
                                     build_dropdown("storey");
 

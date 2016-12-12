@@ -98,7 +98,7 @@ if($listingData['status'] == CLOSED) {
                 <h3>Main set image</h3>
                 <?php
             if ($listingData['images'] == 0) {
-                echo '<img width="400px" height="400px" src="img/noimagefound.jpg"/>';
+                echo '<img width="400px" height="400px" src="img/noimage.jpg"/>';
             } else {
                 echo '<img width="400px" height="400px" src="' . $listingDirPath . $listingID . '_' . $listingData['images'] . '.jpg"/>';
             }
@@ -118,7 +118,6 @@ if($listingData['status'] == CLOSED) {
                 <hr/>
                 <h3>All listing info</h3>
                 <?php
-            $userData = GetUserProfileInfo($_SESSION['userData']['userID']);
             // Display User info (Not final, just to show that it works)
             foreach ($listingData as $key => $value) {
                 echo "<li><strong>" . $key . " :</strong> <i>" . $value . "</i></li>";

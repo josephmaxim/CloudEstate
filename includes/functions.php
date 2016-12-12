@@ -116,6 +116,12 @@ function EnableAgent($user_id){
 
     return $result;
 }
+
+// format currency
+function asDollars($value) {
+return '$' . number_format($value, 2);
+}
+
 // enable user
 function EnableUser($user_id){
     $rand = rand(100000,999999);
@@ -210,9 +216,10 @@ function UpdateReportStatus($user_id,$listing_id){
 }
 // check if user already reported
 function CheckIfUserReported($user_id,$listing_id){
-    pg_prepare(db_connect(), "Check_report","SELECT * FROM reports WHERE user_id = $1 AND listing_id = $2");
+    $rand = rand(1000000, 9999999);
+    pg_prepare(db_connect(), $rand,"SELECT * FROM reports WHERE user_id = $1 AND listing_id = $2");
     // Execute Query
-    $result = pg_execute(db_connect(), "Check_report", array($user_id,$listing_id));
+    $result = pg_execute(db_connect(), $rand, array($user_id,$listing_id));
 
     if(pg_num_rows($result) != 0){
         return true;
@@ -279,10 +286,11 @@ function DisableUser($user_id){
 }
 // checks user favourite
 function CheckUserFavourite($listing_id, $user_id){
-    pg_prepare(db_connect(),'DisableUser', "SELECT * FROM favourites WHERE listing_id = $1 AND user_id = $2");
+    $rand = rand(1000000, 9999999);
+    pg_prepare(db_connect(),$rand, "SELECT * FROM favourites WHERE listing_id = $1 AND user_id = $2");
 
     // Execute SQL
-    $result = pg_execute(db_connect(),'DisableUser', array($listing_id,$user_id)) or die("Error while inserting.");
+    $result = pg_execute(db_connect(),$rand, array($listing_id,$user_id)) or die("Error while inserting.");
 
     if(pg_num_rows($result) == 0){
         return false;

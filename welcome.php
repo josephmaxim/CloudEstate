@@ -130,7 +130,7 @@ $userData = GetUserProfileInfo($_SESSION['userData']['userID']);
                                         $listings = getListingData($favourite[1]);
                                         $highlight = '';
                                         if ($listings['images'] == 0) {
-                                            $image = '<img width="70px" height="70" src="img/noimagefound.jpg"/>';
+                                            $image = '<img width="70px" height="70" src="img/noimage.jpg"/>';
                                         } else {
                                             $image = '<img width="400px" height="400px" src="' . $listingDirPath . $listingID . '_' . $listingData['images'] . '.jpg"/>';
                                         }

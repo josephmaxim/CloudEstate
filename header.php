@@ -39,14 +39,7 @@ session_start();
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="index.php">Home</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Search <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="listing-search.php">Search Listings</a></li>
-                        <li><a href="listing-city.php">Search by City</a></li>
-                        <li><a href="listing-matches.php">Matches</a></li>
-                    </ul>
-                </li>
+                <li><a href="listing-city.php">Search</a></li>
                 <?php
                     if(isset($_SESSION['userData']['userID'])){
 
